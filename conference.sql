@@ -30,32 +30,25 @@ CREATE TABLE Sponsor(
     lastName varchar(30),
     email varchar(50),
     emailsSent int,
+    companyName varchar(30),
     PRIMARY KEY (id),
     FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
 );
 
 CREATE TABLE SponsorCompany(
     companyName varchar(30) NOT NULL,
-    numEmailLimit int,
-    ranking varchar(20),
-    PRIMARY KEY (name)
+    jobAddress varchar(50) NOT NULL,
+    ranking ENUM ('Platinum','Gold','Silver','Bronze'),
+    PRIMARY KEY (companyName)
 );
 
 CREATE TABLE JobPostings(
     jobTitle varchar(30) NOT NULL,
-    jobAddress varchar(50) NOT NULL,
-    payRate varchar(30),
+    jobCity varchar(30) NOT NULL,
+    jobProvince varchar(30) NOT NULL,
+    payRate double,
     companyName varchar(30) NOT NULL,
-    PRIMARY KEY (jobTitle, jobAddress, companyName)
-);
-
-CREATE TABLE Posted(
-    jobTitle varchar(30) NOT NULL,
-    jobAddress varchar(50) NOT NULL,
-    companyName varchar(30) NOT NULL,
-    PRIMARY KEY (jobTitle, jobAddress, companyName),
-    FOREIGN KEY (jobTitle) REFERENCES JobPostings(jobTitle),
-    FOREIGN KEY (jobAddress) REFERENCES JobPostings(jobAddress),
+    PRIMARY KEY (jobTitle, jobCity, jobProvince, companyName),
     FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
 );
 
@@ -69,6 +62,6 @@ CREATE TABLE isMember(
     subcommiteeName varchar(30) NOT NULL,
     isChair boolean,
     PRIMARY KEY (memberId, subcommiteeName),
-    FOREIGN KEY (memberId) REFERENCES CommitteeMember(id), # no cascading delete because of isChair property
+    FOREIGN KEY (memberId) REFERENCES CommitteeMember(id),
     FOREIGN KEY (subcommiteeName) REFERENCES Subcommittee(subcommiteeName)
 );
