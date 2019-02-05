@@ -23,8 +23,12 @@ CREATE TABLE CommitteeMember(
     id char(6) NOT NULL,
     firstName varchar(20),
     lastName varchar(30),
-    PRIMARY KEY (id)
+    email varchar(50),
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES Person(id) ON DELETE CASCADE
 );
+
+-- ############################STUDENTS################################
 
 CREATE TABLE Student(
     id char(6) NOT NULL,
@@ -33,7 +37,8 @@ CREATE TABLE Student(
     email varchar(50),
     roomNumber char(3),
     PRIMARY KEY (id),
-    FOREIGN KEY (roomNumber) REFERENCES HotelRoom(roomNumber) ON DELETE SET NULL
+    FOREIGN KEY (roomNumber) REFERENCES HotelRoom (roomNumber) ON DELETE SET NULL,
+    FOREIGN KEY (id) REFERENCES Attendee(id) ON DELETE CASCADE
 );
 
 CREATE TABLE HotelRoom(
