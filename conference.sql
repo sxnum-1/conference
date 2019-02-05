@@ -39,11 +39,30 @@ CREATE TABLE Sponsor(
     lastName varchar(30),
     email varchar(50),
     emailsSent int,
-    PRIMARY KEY (id)
+    companyName varchar(30),
+    PRIMARY KEY (id),
+    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName) ON DELETE CASCADE
+);
+
+CREATE TABLE SponsorCompany(
+    companyName varchar(30) NOT NULL,
+    jobAddress varchar(50) NOT NULL,
+    ranking ENUM ('Platinum','Gold','Silver','Bronze'),
+    PRIMARY KEY (companyName)
+);
+
+CREATE TABLE JobPostings(
+    jobTitle varchar(30) NOT NULL,
+    jobCity varchar(30) NOT NULL,
+    jobProvince varchar(30) NOT NULL,
+    payRate decimal(8,2),
+    companyName varchar(30) NOT NULL,
+    PRIMARY KEY (jobTitle, jobCity, jobProvince, companyName),
+    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName) ON DELETE CASCADE
 );
 
 CREATE TABLE Subcommittee(
-    name varchar(30),
+    subcommiteeName varchar(30),
     PRIMARY KEY (name)
 );
 
