@@ -47,7 +47,7 @@ CREATE TABLE Sponsor(
 CREATE TABLE SponsorCompany(
     companyName varchar(30) NOT NULL,
     jobAddress varchar(50) NOT NULL,
-    ranking ENUM ('Platinum','Gold','Silver','Bronze'),
+    ranking ENUM('Platinum','Gold','Silver','Bronze'),
     PRIMARY KEY (companyName)
 );
 
@@ -63,7 +63,7 @@ CREATE TABLE JobPostings(
 
 CREATE TABLE Subcommittee(
     subcommiteeName varchar(30),
-    PRIMARY KEY (name)
+    PRIMARY KEY (subcommiteeName)
 );
 
 CREATE TABLE isMember(
