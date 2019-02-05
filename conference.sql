@@ -30,7 +30,8 @@ CREATE TABLE Sponsor(
     lastName varchar(30),
     email varchar(50),
     emailsSent int,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
 );
 
 CREATE TABLE SponsorCompany(
@@ -38,13 +39,6 @@ CREATE TABLE SponsorCompany(
     numEmailLimit int,
     ranking varchar(20),
     PRIMARY KEY (name)
-);
-
-CREATE TABLE Representation(
-    SponsorId char(6) NOT NULL,
-    companyName varchar(30) NOT NULL,
-    PRIMARY KEY (SponsorId, companyName),
-    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
 );
 
 CREATE TABLE JobPostings(
