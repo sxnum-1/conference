@@ -26,6 +26,14 @@ CREATE TABLE HotelRoom(
     PRIMARY KEY (roomNumber)
 );
 
+CREATE TABLE SessionEvent(
+    sessionName varchar(50),
+    startTime datetime NOT NULL,
+    endTime datetime NOT NULL,
+    room char(3) NOT NULL,
+    PRIMARY KEY (startTime, room)
+);
+
 CREATE TABLE Professional(
     id char(6) NOT NULL,
     firstName varchar(20),
@@ -65,11 +73,38 @@ CREATE TABLE JobPostings(
     FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName) ON DELETE CASCADE
 );
 
-CREATE TABLE isMember(
+CREATE TABLE IsMember(
     memberId char(6) NOT NULL,
     subcommitteeName varchar(30) NOT NULL,
     isChair boolean,
     PRIMARY KEY (memberId, subcommitteeName),
     FOREIGN KEY (memberId) REFERENCES CommitteeMember(id), -- no cascading delete because of isChair property
     FOREIGN KEY (subcommitteeName) REFERENCES Subcommittee(subcommitteeName)
+);
+
+CREATE TABLE StudentSpeaksFor(
+    studentId char(6) NOT NULL,
+    sessionStartTime datetime NOT NULL,
+    sessionRoom char(3) NOT NULL,
+    PRIMARY KEY (studentId, sessionStartTime, sessionRoom),
+    FOREIGN KEY (studentId) REFERENCES Student(id),
+    FOREIGN KEY (sessionStartTime, sessionRoom) REFERENCES SessionEvent(startTime, room) ON DELETE CASCADE
+);
+
+CREATE TABLE ProfessionalSpeaksFor(
+    professionalId char(6) NOT NULL,
+    sessionStartTime datetime NOT NULL,
+    sessionRoom char(3) NOT NULL,
+    PRIMARY KEY (professionalId, sessionStartTime, sessionRoom),
+    FOREIGN KEY (professionalId) REFERENCES Professional(id),
+    FOREIGN KEY (sessionStartTime, sessionRoom) REFERENCES SessionEvent(startTime, room) ON DELETE CASCADE
+);
+
+CREATE TABLE SponsorSpeaksFor(
+    sponsorId char(6) NOT NULL,
+    sessionStartTime datetime NOT NULL,
+    sessionRoom char(3) NOT NULL,
+    PRIMARY KEY (sponsorId, sessionStartTime, sessionRoom),
+    FOREIGN KEY (sponsorId) REFERENCES Sponsor(id),
+    FOREIGN KEY (sessionStartTime, sessionRoom) REFERENCES SessionEvent(startTime, room) ON DELETE CASCADE
 );
