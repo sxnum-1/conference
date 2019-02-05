@@ -41,7 +41,7 @@ CREATE TABLE Sponsor(
     emailsSent int,
     companyName varchar(30),
     PRIMARY KEY (id),
-    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
+    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName) ON DELETE CASCADE
 );
 
 CREATE TABLE SponsorCompany(
@@ -55,10 +55,10 @@ CREATE TABLE JobPostings(
     jobTitle varchar(30) NOT NULL,
     jobCity varchar(30) NOT NULL,
     jobProvince varchar(30) NOT NULL,
-    payRate double,
+    payRate decimal(8,2),
     companyName varchar(30) NOT NULL,
     PRIMARY KEY (jobTitle, jobCity, jobProvince, companyName),
-    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
+    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName) ON DELETE CASCADE
 );
 
 CREATE TABLE Subcommittee(
