@@ -33,40 +33,8 @@ CREATE TABLE Sponsor(
     PRIMARY KEY (id)
 );
 
-CREATE TABLE SponsorCompany(
-    companyName varchar(30) NOT NULL,
-    numEmailLimit int,
-    ranking varchar(20),
-    PRIMARY KEY (name)
-);
-
-CREATE TABLE Representation(
-    SponsorId char(6) NOT NULL,
-    companyName varchar(30) NOT NULL,
-    PRIMARY KEY (SponsorId, companyName),
-    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
-);
-
-CREATE TABLE JobPostings(
-    jobTitle varchar(30) NOT NULL,
-    jobAddress varchar(50) NOT NULL,
-    payRate varchar(30),
-    companyName varchar(30) NOT NULL,
-    PRIMARY KEY (jobTitle, jobAddress, companyName)
-);
-
-CREATE TABLE Posted(
-    jobTitle varchar(30) NOT NULL,
-    jobAddress varchar(50) NOT NULL,
-    companyName varchar(30) NOT NULL,
-    PRIMARY KEY (jobTitle, jobAddress, companyName),
-    FOREIGN KEY (jobTitle) REFERENCES JobPostings(jobTitle),
-    FOREIGN KEY (jobAddress) REFERENCES JobPostings(jobAddress),
-    FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName)
-);
-
 CREATE TABLE Subcommittee(
-    subcommiteeName varchar(30),
+    name varchar(30),
     PRIMARY KEY (name)
 );
 
@@ -76,5 +44,5 @@ CREATE TABLE isMember(
     isChair boolean,
     PRIMARY KEY (memberId, subcommiteeName),
     FOREIGN KEY (memberId) REFERENCES CommitteeMember(id), # no cascading delete because of isChair property
-    FOREIGN KEY (subcommiteeName) REFERENCES Subcommittee(subcommiteeName)
+    FOREIGN KEY (subcommiteeName) REFERENCES Subcommittee(name)
 );
