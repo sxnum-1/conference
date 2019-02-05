@@ -31,7 +31,9 @@ CREATE TABLE Student(
 
 CREATE TABLE Student(
     id char(6) NOT NULL,
+    roomNumber CHAR(3) NOT NULL,
     PRIMARY KEY (id),
+    FOREIGN KEY (roomNumber) REFERENCES HotelRoom (roomNumber) ON DELETE SET NULL,
     FOREIGN KEY (id) REFERENCES Attendee(id) ON DELETE CASCADE
 >>>>>>> added hotel room entity and roomassigned relation
 );
@@ -41,13 +43,7 @@ CREATE TABLE HotelRoom(
     numberOfBeds int,
     PRIMARY KEY (roomNumber) 
 );
-CREATE TABLE RoomAssigned(
-    id char(6) NOT NULL,
-    roomNumber CHAR(3) NOT NULL,
-    PRIMARY KEY (id, roomNumber),
-    FOREIGN KEY (id) REFERENCES  Student(id),
-    FOREIGN KEY (roomNumber) REFERENCES HotelRoom(roomNumber)
-);
+
 
 CREATE TABLE Professional(
     id char(6) NOT NULL,
