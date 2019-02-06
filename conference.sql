@@ -1,3 +1,4 @@
+-- We'll assume that a database named 'Conference' doesn't already exist
 CREATE DATABASE Conference;
 USE Conference;
 
@@ -8,15 +9,15 @@ CREATE TABLE Subcommittee(
 
 CREATE TABLE CommitteeMember(
     id char(6) NOT NULL,
-    firstName varchar(20),
-    lastName varchar(30),
+    firstName varchar(20) NOT NULL,
+    lastName varchar(30) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE SponsorCompany(
     companyName varchar(30) NOT NULL,
-    jobAddress varchar(50) NOT NULL,
-    ranking ENUM ('Platinum','Gold','Silver','Bronze'),
+    companyLocation varchar(50) NOT NULL,
+    ranking enum('Platinum','Gold','Silver','Bronze') NOT NULL,
     PRIMARY KEY (companyName)
 );
 
@@ -26,8 +27,9 @@ CREATE TABLE HotelRoom(
     PRIMARY KEY (roomNumber)
 );
 
+-- Models 'Session' from the ER
 CREATE TABLE SessionEvent(
-    sessionName varchar(50),
+    sessionName varchar(50) NOT NULL,
     startTime datetime NOT NULL,
     endTime datetime NOT NULL,
     room char(3) NOT NULL,
@@ -36,16 +38,16 @@ CREATE TABLE SessionEvent(
 
 CREATE TABLE Professional(
     id char(6) NOT NULL,
-    firstName varchar(20),
-    lastName varchar(30),
+    firstName varchar(20) NOT NULL,
+    lastName varchar(30) NOT NULL,
     email varchar(50),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE Student(
     id char(6) NOT NULL,
-    firstName varchar(20),
-    lastName varchar(30),
+    firstName varchar(20) NOT NULL,
+    lastName varchar(30) NOT NULL,
     email varchar(50),
     roomNumber char(3),
     PRIMARY KEY (id),
@@ -54,11 +56,11 @@ CREATE TABLE Student(
 
 CREATE TABLE Sponsor(
     id char(6) NOT NULL,
-    firstName varchar(20),
-    lastName varchar(30),
+    firstName varchar(20) NOT NULL,
+    lastName varchar(30) NOT NULL,
     email varchar(50),
-    emailsSent int,
-    companyName varchar(30),
+    emailsSent int NOT NULL,
+    companyName varchar(30) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName) ON DELETE CASCADE
 );
@@ -73,6 +75,7 @@ CREATE TABLE JobPostings(
     FOREIGN KEY (companyName) REFERENCES SponsorCompany(companyName) ON DELETE CASCADE
 );
 
+-- 'Member Of' relation between Subcommittee and CommitteeMember
 CREATE TABLE IsMember(
     memberId char(6) NOT NULL,
     subcommitteeName varchar(30) NOT NULL,
@@ -82,6 +85,7 @@ CREATE TABLE IsMember(
     FOREIGN KEY (subcommitteeName) REFERENCES Subcommittee(subcommitteeName)
 );
 
+-- 'Speaker At' relation between Student and Session
 CREATE TABLE StudentSpeaksFor(
     studentId char(6) NOT NULL,
     sessionStartTime datetime NOT NULL,
@@ -91,6 +95,7 @@ CREATE TABLE StudentSpeaksFor(
     FOREIGN KEY (sessionStartTime, sessionRoom) REFERENCES SessionEvent(startTime, room) ON DELETE CASCADE
 );
 
+-- 'Speaker At' relation between Professional and Session
 CREATE TABLE ProfessionalSpeaksFor(
     professionalId char(6) NOT NULL,
     sessionStartTime datetime NOT NULL,
@@ -100,6 +105,7 @@ CREATE TABLE ProfessionalSpeaksFor(
     FOREIGN KEY (sessionStartTime, sessionRoom) REFERENCES SessionEvent(startTime, room) ON DELETE CASCADE
 );
 
+-- 'Speaker At' relation between Sponsor and Session
 CREATE TABLE SponsorSpeaksFor(
     sponsorId char(6) NOT NULL,
     sessionStartTime datetime NOT NULL,
@@ -108,3 +114,69 @@ CREATE TABLE SponsorSpeaksFor(
     FOREIGN KEY (sponsorId) REFERENCES Sponsor(id),
     FOREIGN KEY (sessionStartTime, sessionRoom) REFERENCES SessionEvent(startTime, room) ON DELETE CASCADE
 );
+
+-- In the small case that table creation and data population needs to be separated,
+-- deletion of tuples in existing tables should be useful
+delete from SponsorSpeaksFor;
+delete from ProfessionalSpeaksFor;
+delete from StudentSpeaksFor;
+delete from IsMember;
+delete from JobPostings;
+delete from Sponsor;
+delete from Student;
+delete from Professional;
+delete from SessionEvent;
+delete from HotelRoom;
+delete from SponsorCompany;
+delete from CommitteeMember;
+delete from Subcommittee;
+
+-- Populating the tables with some data
+insert into Subcommittee values ('Registration Committee');
+insert into Subcommittee values ('Program Committee');
+insert into Subcommittee values ('Sponsor Committee');
+insert into CommitteeMember values ('000000','Riki', 'Suzuki');
+insert into CommitteeMember values ('000001', 'Cat', 'Woman');
+insert into CommitteeMember values ('000002', 'Joe', 'Bombosa');
+insert into CommitteeMember values ('000003','Moe', 'Rombosa');
+insert into SponsorCompany values ('lemonsRus','123MainSt', 'Platinum');
+insert into SponsorCompany values ('lemonswereus','124MainSt', 'Platinum');
+insert into SponsorCompany values ('lemonsnowus','125MainSt', 'Platinum');
+insert into HotelRoom values ('001',2);
+insert into HotelRoom values ('002',1);
+insert into HotelRoom values ('003',2);
+insert into HotelRoom values ('004',1);
+insert into HotelRoom values ('005',2);
+insert into HotelRoom values ('006',1);
+insert into HotelRoom values ('007',2);
+insert into HotelRoom values ('008',1);
+insert into SessionEvent values ('learnToEat', '2019-02-09 09:30:01','2019-02-09 10:30:01','000');
+insert into SessionEvent values ('learnToFat', '2019-02-09 09:30:01','2019-02-09 10:30:01','001');
+insert into SessionEvent values ('learnedToEat', '2019-02-09 08:30:01','2019-02-09 09:30:01','001');
+insert into Professional values ('100000', 'John', 'Doe', 'johndoe@gmail.com');
+insert into Professional values ('100001', 'Jane', 'Smith', 'janesmith@hotmail.com');
+insert into Professional values ('100002', 'Abbey', 'Road', NULL);
+insert into Professional values ('100003', 'Bob', 'Dylan', NULL);
+insert into Student values ('000000', 'Riki', 'Suzuki', 'rs@queensu.ca','001');
+insert into Student values ('000001', 'Cat', 'Woman', 'catWom@queensu.ca','001');
+insert into Student values ('000002', 'Joe', 'Bombosa', 'jbombosa@queensu.ca','002');
+insert into Student values ('000003', 'Moe', 'Rombosa', 'mRombosa@queensu.ca','002');
+insert into Sponsor values ('200000', 'Toad', 'Stool', NULL, 0, 'lemonsRus');
+insert into Sponsor values ('200001', 'Tony', 'Montana', 'mountain@gmail.com', 0, 'lemonswereus');
+insert into Sponsor values ('200002', 'Dog', 'Goodboy', NULL, 0, 'lemonsnowus');
+insert into Sponsor values ('200003', 'Bonjour', 'Chat', NULL, 0, 'lemonsnowus');
+insert into JobPostings values ('catflipper','narnia','nevereverland',3.14,'lemonsRus');
+insert into JobPostings values ('dogflipper','narnia','nevereverland',3.14,'lemonsRus');
+insert into JobPostings values ('cowTipper','narnia','nevereverland',3.14,'lemonsRus');
+insert into IsMember values ('000003','Program Committee', TRUE);
+insert into IsMember values ('000002','Sponsor Committee', TRUE);
+insert into IsMember values ('000001','Registration Committee', TRUE);
+insert into StudentSpeaksFor values ('000000','2019-02-09 09:30:01','000');
+insert into StudentSpeaksFor values ('000001','2019-02-09 09:30:01','000');
+insert into StudentSpeaksFor values ('000003','2019-02-09 09:30:01','000');
+insert into ProfessionalSpeaksFor values ('100000','2019-02-09 09:30:01','001');
+insert into ProfessionalSpeaksFor values ('100001','2019-02-09 09:30:01','001');
+insert into ProfessionalSpeaksFor values ('100001','2019-02-09 08:30:01','001');
+insert into SponsorSpeaksFor values ('200000','2019-02-09 08:30:01','001');
+insert into SponsorSpeaksFor values ('200002','2019-02-09 08:30:01','001');
+insert into SponsorSpeaksFor values ('200003','2019-02-09 08:30:01','001');
