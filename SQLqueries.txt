@@ -3,8 +3,6 @@ Queries:
 
 SELECT *
 FROM IsMember
-    INNER JOIN CommitteeMember
-    	ON CommitteeMember.id = IsMember.memberId
 WHERE subcommitteeName="Sponsor Committee" -- can be any variable
 
 
