@@ -1,0 +1,48 @@
+Queries:
+1. display all members of a particular organizing sub-committee  (allow the user to choose the sub-committee from a drop down menu).
+
+SELECT *
+FROM IsMember
+    INNER JOIN CommitteeMember
+    	ON CommitteeMember.id = IsMember.memberId
+WHERE subcommitteeName="Sponsor Committee" -- can be any variable
+
+
+2. for a particular hotel room, list all of the students housed in this room.
+
+SELECT CONCAT(firstName, " ",lastName) as Name
+FROM Student
+WHERE roomNumber="001" -- can be any variable
+
+
+3. display the conference schedule for a particular day.
+
+SELECT sessionName, room, TIME(startTime), TIME(endTime)
+FROM SessionEvent
+WHERE DATE(startTime)="2019-02-09"
+
+4. List the sponsors (company name) and their level of sponsorship
+
+SELECT companyName, ranking 
+FROM SponsorCompany
+
+5. for a particular company, list the jobs that they have available.
+
+
+
+6. list all jobs available.
+
+7. show the list of conference attendees as 3 lists: students, professionals, sponsors.
+
+8. add a new attendee.  If the attendee is a student, add them to a hotel room. 
+
+9. show the total intake of the conference broken down by total registration amounts and total sponsorship amounts.
+
+10. add a new sponsoring company
+
+11. delete a sponsoring company and it's associated attendees
+
+12. switch a session's day/time and/or location.
+
+
+

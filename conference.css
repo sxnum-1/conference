@@ -1,32 +1,85 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
+html{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; */
 
-ul.navbar {
+}
+body {
+  font-family: sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 10% 20% 60% 10%;
+  grid-template-areas:
+   "navbar navbar navbar navbar"
+   ". header header ."
+   ". main main ."
+   "footer footer footer footer";
+}
+/********************************************************************************
+********************************Navigation Styling*******************************
+*********************************************************************************/
+nav{
+  grid-area: navbar;
+  position: fixed;
+  width:100%;
+  z-index: 999;
+  box-shadow: 0 8px 6px -6px rgb(151, 151, 151);
+}
+nav ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: midnightblue;
+  background-color: rgb(248, 248, 248);
 }
 
-ul.navbar li {
+nav ul li {
   float: left;
 }
 
-ul.navbar li a {
+nav ul li a {
   display: block;
   padding: 16px;
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
-ul.navbar li a:hover:not(.active) {
-  background-color: darkcyan;
+nav ul li a:hover:not(.active) {
+  color: rgb(136, 136, 136);
 }
 
-ul.navbar li a.active {
-  background-color: gold;
+nav ul li a.active {
+  background-color: rgb(230, 230, 230);
   color: black;
+}
+/********************************************************************************
+********************************Heading Styling**********************************
+*********************************************************************************/
+header{
+  grid-area: header;
+  text-align: center;
+}
+
+/********************************************************************************
+*********************************Main Styling************************************
+*********************************************************************************/
+.main{
+  grid-area: main;
+}
+
+
+
+/********************************************************************************
+********************************Footing Styling**********************************
+*********************************************************************************/
+footer{
+  grid-area: footer;
 }
