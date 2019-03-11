@@ -26,21 +26,75 @@ FROM SponsorCompany
 
 5. for a particular company, list the jobs that they have available.
 
-
+SELECT *
+FROM JobPostings
+WHERE companyName="someCompany"; -- can be any variable
 
 6. list all jobs available.
 
+SELECT *
+FROM JobPostings;
+
 7. show the list of conference attendees as 3 lists: students, professionals, sponsors.
 
-8. add a new attendee.  If the attendee is a student, add them to a hotel room. 
+SELECT *
+FROM Professional;
+
+SELECT *
+FROM Student;
+
+SELECT *
+FROM Sponsor;
+
+8. add a new attendee.  If the attendee is a student, add them to a hotel room.
+
+INSERT INTO Student -- or Professional/Sponsor
+VALUES('000000', 'First', 'Name', 'First.Name@gmail.com', 123);
+-- if drop down menu is necessary for the hotel rooms
+SELECT roomNumber
+FROM HotelRoom;
 
 9. show the total intake of the conference broken down by total registration amounts and total sponsorship amounts.
 
+-- get the number of students
+-- multiply this value by 50
+SELECT count(id)
+FROM Student;
+
+-- get the number of professionals
+-- multiply this value by 100
+SELECT count(id)
+FROM Professional;
+
+-- get the number of sponsors arranged by their ranking
+-- multiply by 10000, 5000, 3000, or 1000 and sum them up
+SELECT count(companyName)
+FROM SponsorCompany
+WHERE ranking='Platinum'; -- and gold, silver, bronze
+
 10. add a new sponsoring company
+
+INSERT INTO SponsorCompany
+VALUES('Some Company Name', 'Some address', 'Gold');
 
 11. delete a sponsoring company and it's associated attendees
 
+-- deleting the sponsors should be covered by `on delete cascade`
+DELETE FROM SponsorCompany
+WHERE companyName='someCompanyName';
+
 12. switch a session's day/time and/or location.
 
+-- potential design choice: have an event last in increments of hours
 
+-- find out if there is a time conflict with existing room
+SELECT startTime, endTime
+FROM SessionEvent
+WHERE room='121' -- the room to check for
 
+-- for every queried events, the start and/or the end time cannot fall between the event's start and end time
+-- the logic for this must be written before the following query can be executed
+-- if the condition is met:
+UPDATE SessionEvent
+SET startTime='newstarttime', endTime='newendtime', room='200'
+WHERE startTime='originalstarttime' AND room='121';
