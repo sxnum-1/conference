@@ -6,13 +6,13 @@
   <body>
     <nav>
       <ul class="navbar">
-        <li><a href="index.html">Events</a></li>
-        <li><a href="attendees.html">Attendees</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
-        <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="hotel.html">Hotel</a></li>
-        <li><a class="active" href="committees.html">Committees</a></li>
-        <li><a href="logistics.html">Logistics</a></li>
+        <li><a href="index.php">Events</a></li>
+        <li><a href="attendees.php">Attendees</a></li>
+        <li><a href="sponsors.php">Sponsors</a></li>
+        <li><a href="jobs.php">Jobs</a></li>
+        <li><a href="hotel.php">Hotel</a></li>
+        <li><a class="active" href="committees.php">Committees</a></li>
+        <li><a href="logistics.php">Logistics</a></li>
       </ul>
     </nav>
     <header>
