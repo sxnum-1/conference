@@ -24,6 +24,9 @@
       <h2>list all events for a particular day</h2>
       <h2>switch a session's day/time and/or location</h2>
       <!-- placeholder -->
+      <?php
+
+      ?>
     </div>
     <footer>
       
@@ -32,6 +35,3 @@
 </html>
 
 
-<?
-
-?>
