@@ -37,7 +37,7 @@ CREATE TABLE SessionEvent(
 );
 
 CREATE TABLE Professional(
-    id char(6) NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     firstName varchar(20) NOT NULL,
     lastName varchar(30) NOT NULL,
     email varchar(50),
@@ -45,7 +45,7 @@ CREATE TABLE Professional(
 );
 
 CREATE TABLE Student(
-    id char(6) NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     firstName varchar(20) NOT NULL,
     lastName varchar(30) NOT NULL,
     email varchar(50),
@@ -55,7 +55,7 @@ CREATE TABLE Student(
 );
 
 CREATE TABLE Sponsor(
-    id char(6) NOT NULL,
+    id int NOT NULL AUTO_INCREMENT,
     firstName varchar(20) NOT NULL,
     lastName varchar(30) NOT NULL,
     email varchar(50),
@@ -87,7 +87,7 @@ CREATE TABLE IsMember(
 
 -- 'Speaker At' relation between Student and Session
 CREATE TABLE StudentSpeaksFor(
-    studentId char(6) NOT NULL,
+    studentId int NOT NULL,
     sessionStartTime datetime NOT NULL,
     sessionRoom char(3) NOT NULL,
     PRIMARY KEY (studentId, sessionStartTime, sessionRoom),
@@ -97,7 +97,7 @@ CREATE TABLE StudentSpeaksFor(
 
 -- 'Speaker At' relation between Professional and Session
 CREATE TABLE ProfessionalSpeaksFor(
-    professionalId char(6) NOT NULL,
+    professionalId int NOT NULL,
     sessionStartTime datetime NOT NULL,
     sessionRoom char(3) NOT NULL,
     PRIMARY KEY (professionalId, sessionStartTime, sessionRoom),
@@ -107,7 +107,7 @@ CREATE TABLE ProfessionalSpeaksFor(
 
 -- 'Speaker At' relation between Sponsor and Session
 CREATE TABLE SponsorSpeaksFor(
-    sponsorId char(6) NOT NULL,
+    sponsorId int NOT NULL,
     sessionStartTime datetime NOT NULL,
     sessionRoom char(3) NOT NULL,
     PRIMARY KEY (sponsorId, sessionStartTime, sessionRoom),
@@ -153,30 +153,30 @@ insert into HotelRoom values ('008',1);
 insert into SessionEvent values ('learnToEat', '2019-02-09 09:30:01','2019-02-09 10:30:01','000');
 insert into SessionEvent values ('learnToFat', '2019-02-09 09:30:01','2019-02-09 10:30:01','001');
 insert into SessionEvent values ('learnedToEat', '2019-02-09 08:30:01','2019-02-09 09:30:01','001');
-insert into Professional values ('100000', 'John', 'Doe', 'johndoe@gmail.com');
-insert into Professional values ('100001', 'Jane', 'Smith', 'janesmith@hotmail.com');
-insert into Professional values ('100002', 'Abbey', 'Road', NULL);
-insert into Professional values ('100003', 'Bob', 'Dylan', NULL);
-insert into Student values ('000000', 'Riki', 'Suzuki', 'rs@queensu.ca','001');
-insert into Student values ('000001', 'Cat', 'Woman', 'catWom@queensu.ca','001');
-insert into Student values ('000002', 'Joe', 'Bombosa', 'jbombosa@queensu.ca','002');
-insert into Student values ('000003', 'Moe', 'Rombosa', 'mRombosa@queensu.ca','002');
-insert into Sponsor values ('200000', 'Toad', 'Stool', NULL, 0, 'lemonsRus');
-insert into Sponsor values ('200001', 'Tony', 'Montana', 'mountain@gmail.com', 0, 'lemonswereus');
-insert into Sponsor values ('200002', 'Dog', 'Goodboy', NULL, 0, 'lemonsnowus');
-insert into Sponsor values ('200003', 'Bonjour', 'Chat', NULL, 0, 'lemonsnowus');
+insert into Professional(firstName, lastName, email) values ('John', 'Doe', 'johndoe@gmail.com');
+insert into Professional(firstName, lastName, email) values ('Jane', 'Smith', 'janesmith@hotmail.com');
+insert into Professional(firstName, lastName, email) values ('Abbey', 'Road', NULL);
+insert into Professional(firstName, lastName, email) values ('Bob', 'Dylan', NULL);
+insert into Student(firstName, lastName, email, roomNumber) values ('Riki', 'Suzuki', 'rs@queensu.ca','001');
+insert into Student(firstName, lastName, email, roomNumber) values ('Cat', 'Woman', 'catWom@queensu.ca','001');
+insert into Student(firstName, lastName, email, roomNumber) values ('Joe', 'Bombosa', 'jbombosa@queensu.ca','002');
+insert into Student(firstName, lastName, email, roomNumber) values ('Moe', 'Rombosa', 'mRombosa@queensu.ca','002');
+insert into Sponsor(firstName, lastName, email, emailsSent, companyName) values ('Toad', 'Stool', NULL, 0, 'lemonsRus');
+insert into Sponsor(firstName, lastName, email, emailsSent, companyName) values ('Tony', 'Montana', 'mountain@gmail.com', 0, 'lemonswereus');
+insert into Sponsor(firstName, lastName, email, emailsSent, companyName) values ('Dog', 'Goodboy', NULL, 0, 'lemonsnowus');
+insert into Sponsor(firstName, lastName, email, emailsSent, companyName) values ('Bonjour', 'Chat', NULL, 0, 'lemonsnowus');
 insert into JobPostings values ('catflipper','narnia','nevereverland',3.14,'lemonsRus');
 insert into JobPostings values ('dogflipper','narnia','nevereverland',3.14,'lemonsRus');
 insert into JobPostings values ('cowTipper','narnia','nevereverland',3.14,'lemonsRus');
 insert into IsMember values ('000003','Program Committee', TRUE);
 insert into IsMember values ('000002','Sponsor Committee', TRUE);
 insert into IsMember values ('000001','Registration Committee', TRUE);
-insert into StudentSpeaksFor values ('000000','2019-02-09 09:30:01','000');
-insert into StudentSpeaksFor values ('000001','2019-02-09 09:30:01','000');
-insert into StudentSpeaksFor values ('000003','2019-02-09 09:30:01','000');
-insert into ProfessionalSpeaksFor values ('100000','2019-02-09 09:30:01','001');
-insert into ProfessionalSpeaksFor values ('100001','2019-02-09 09:30:01','001');
-insert into ProfessionalSpeaksFor values ('100001','2019-02-09 08:30:01','001');
-insert into SponsorSpeaksFor values ('200000','2019-02-09 08:30:01','001');
-insert into SponsorSpeaksFor values ('200002','2019-02-09 08:30:01','001');
-insert into SponsorSpeaksFor values ('200003','2019-02-09 08:30:01','001');
+insert into StudentSpeaksFor values (1,'2019-02-09 09:30:01','000');
+insert into StudentSpeaksFor values (2,'2019-02-09 09:30:01','000');
+insert into StudentSpeaksFor values (3,'2019-02-09 09:30:01','000');
+insert into ProfessionalSpeaksFor values (1,'2019-02-09 09:30:01','001');
+insert into ProfessionalSpeaksFor values (2,'2019-02-09 09:30:01','001');
+insert into ProfessionalSpeaksFor values (2,'2019-02-09 08:30:01','001');
+insert into SponsorSpeaksFor values (1,'2019-02-09 08:30:01','001');
+insert into SponsorSpeaksFor values (3,'2019-02-09 08:30:01','001');
+insert into SponsorSpeaksFor values (4,'2019-02-09 08:30:01','001');
