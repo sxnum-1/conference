@@ -15,7 +15,7 @@ body {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 15% 35% 35% 15%;
   grid-template-rows: 10% 20% 60% 10%;
   grid-template-areas:
    "navbar navbar navbar navbar"

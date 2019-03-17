@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db = 'conference';
+$db = 'Conference';
 $user = 'root';
 $pwd = '';
 
