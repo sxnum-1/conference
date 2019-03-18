@@ -35,7 +35,7 @@
             $stmt->execute();
             //Prepares dropdown menu with company names. 
             //Calls function displayJobs when menu changes to a new selection and passes selection as parameter
-            echo "<select id=\"companyname\" onChange=\"displayJobs(this)\">";
+            echo "<select id='companyname' onChange='displayJobs(this.value)'>";
             echo "<option value=''></option>";
             //Constructs the options looping from the query call. 
             while ($company = $stmt->fetch()){
@@ -76,20 +76,22 @@
       //Target div to display info
       let content = document.getElementById("companyjobdisplay");
       //Uses fetch API to call script that provides database data dynamically.
-      fetch("./jobsCompanyDisplay.php?company="+company.value)
+      fetch("./jobsCompanyDisplay.php?company=" + company)
         .then((response) => { //Promises 1
             if (response.status == 200){
               return response.text().then((text) => { //2nd layer promises
                 //Gets the html data from the php file and displays all info in the target div.
-                content.innerHTML = "<h3>" + company.value + "</h3>" + text;
+                content.innerHTML = "<h3>" + company + "</h3>" + text;
 
               });
               return
             }
+            else{
+              content.innerHTML= "<p> Unable to retrieve job information </p>";
+            }
           }
         )
-        .catch(
-          function(err){
+        .catch((err) => {
             console.log('Fetch Error :-S', err);
           }
         );
