@@ -26,7 +26,7 @@
 
     <!-- placeholder -->
     <header>
-        <h1>Stuff for attendees</h1>
+        <h1>Attendees</h1>
     </header>
     <div class="main">
         <!-- set up PDO -->
@@ -36,28 +36,28 @@
         <div id="newattendeepersistence">
             <?php
             if (!empty($_POST)) {
-              $attendeeType = ucwords($_POST["attendeetype"]);
-              $firstname = $_POST["firstname"];
-              $lastname = $_POST["lastname"];
-              $email = $_POST["email"];
+                $attendeeType = ucwords($_POST["attendeetype"]);
+                $firstname = $_POST["firstname"];
+                $lastname = $_POST["lastname"];
+                $email = $_POST["email"];
 
-              // empty values are turned into empty strings, not 'NULL'
-              if ($attendeeType == "Student") {
-                $roomnumber = $_POST["roomnumber"];
-                $query = "INSERT INTO $attendeeType(firstName, lastName, email, roomNumber) VALUES(\"$firstname\", \"$lastname\", \"$email\", \"$roomnumber\")";
-              } else if ($attendeeType == "Sponsor") {
-                $sponsoringcompany = $_POST["sponsoringcompany"];
-                $query = "INSERT INTO $attendeeType(firstName, lastName, email, emailsSent, companyName) VALUES(\"$firstname\", \"$lastname\", \"$email\", 0, \"$sponsoringcompany\")";
-              } else { // Professional
-                $query = "INSERT INTO $attendeeType(firstName, lastName, email) VALUES(\"$firstname\", \"$lastname\", \"$email\")";
-              }
-              $stmt = $pdo->prepare($query);
-              $hasPersisted = $stmt->execute();
+                // empty values are turned into empty strings, not 'NULL'
+                if ($attendeeType == "Student") {
+                    $roomnumber = $_POST["roomnumber"];
+                    $query = "INSERT INTO $attendeeType(firstName, lastName, email, roomNumber) VALUES(\"$firstname\", \"$lastname\", \"$email\", \"$roomnumber\")";
+                } else if ($attendeeType == "Sponsor") {
+                    $sponsoringcompany = $_POST["sponsoringcompany"];
+                    $query = "INSERT INTO $attendeeType(firstName, lastName, email, emailsSent, companyName) VALUES(\"$firstname\", \"$lastname\", \"$email\", 0, \"$sponsoringcompany\")";
+                } else { // Professional
+                    $query = "INSERT INTO $attendeeType(firstName, lastName, email) VALUES(\"$firstname\", \"$lastname\", \"$email\")";
+                }
+                $stmt = $pdo->prepare($query);
+                $hasPersisted = $stmt->execute();
 
-              if ($hasPersisted)
-                echo "New attendee successfully added";
-              else
-                echo "Error adding the new attendee";
+                if ($hasPersisted)
+                    echo "New attendee successfully added";
+                else
+                    echo "Error adding the new attendee";
             }
             ?>
         </div>
@@ -87,10 +87,10 @@
             echo "<table>";
             echo "<tr><th>Name</th><th>Email</th><th>Hotel Room Number</th></tr>";
             while ($student = $stmt->fetch()) {
-              $fullName = $student["fullName"];
-              $email = $student["email"];
-              $roomNumber = $student["roomNumber"];
-              echo "<tr><td>$fullName</td><td>$email</td><td>$roomNumber</td></tr>";
+                $fullName = $student["fullName"];
+                $email = $student["email"];
+                $roomNumber = $student["roomNumber"];
+                echo "<tr><td>$fullName</td><td>$email</td><td>$roomNumber</td></tr>";
             }
             echo "</table>";
             ?>
@@ -103,9 +103,9 @@
             echo "<table>";
             echo "<tr><th>Name</th><th>Email</th></tr>";
             while ($professional = $stmt->fetch()) {
-              $fullName = $professional["fullName"];
-              $email = $professional["email"];
-              echo "<tr><td>$fullName</td><td>$email</td></tr>";
+                $fullName = $professional["fullName"];
+                $email = $professional["email"];
+                echo "<tr><td>$fullName</td><td>$email</td></tr>";
             }
             echo "</table>";
             ?>
@@ -118,11 +118,11 @@
             echo "<table>";
             echo "<tr><th>Name</th><th>Email</th><th>Emails Sent</th><th>Representative Sponsor</th></tr>";
             while ($sponsor = $stmt->fetch()) {
-              $fullName = $sponsor["fullName"];
-              $email = $sponsor["email"];
-              $emailsSent = $sponsor["emailsSent"];
-              $companyName = $sponsor["companyName"];
-              echo "<tr><td>$fullName</td><td>$email</td><td>$emailsSent</td><td>$companyName</td></tr>";
+                $fullName = $sponsor["fullName"];
+                $email = $sponsor["email"];
+                $emailsSent = $sponsor["emailsSent"];
+                $companyName = $sponsor["companyName"];
+                echo "<tr><td>$fullName</td><td>$email</td><td>$emailsSent</td><td>$companyName</td></tr>";
             }
             echo "</table>";
             ?>
@@ -153,7 +153,7 @@
                 echo "<p>HotelRoom:</p><select name=\"roomnumber\">";
 
                 while ($room = $stmt->fetch()) {
-                  echo "<option>" . $room["roomNumber"] . "</option>";
+                    echo "<option>" . $room["roomNumber"] . "</option>";
                 }
 
                 echo "</select><br>";
