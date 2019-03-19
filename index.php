@@ -16,9 +16,7 @@
       </ul>
     </nav>
     <header>
-      <!-- placeholder -->
-      <h1>stuff for events</h1>
-
+      <h1>Session Events</h1>
     </header>
     <div class="main">
       <?php include 'pdo.php'?>
@@ -64,7 +62,7 @@
       .then((response) => {
         if (response.status == 200){
           return response.text().then((text) => {
-            content.innerHTML = "<h3> Events on " + day + "</h3>" + text;
+            content.innerHTML =  text;
           });
         }
       })
