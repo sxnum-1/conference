@@ -2,11 +2,6 @@
 <html>
     <head>
         <link href="conference.css" type="text/css" rel="stylesheet" />
-            <script>
-                if (window.history.replaceState) {
-                    window.history.replaceState(null, null, window.location.href);
-                }
-            </script>
     </head>
     <body>
         <nav>
@@ -25,28 +20,35 @@
         </header>
         <div class="main">
             <?php include 'pdo.php'?>
+
             <div id="listDayEvents">
-                <?php
-                //Gets the possible days to select from
-                echo "<h2>Event Date:</h2>";
-                echo "<select id='dateselect' onChange=displayEvent(this.value)>";
-                    echo "<option value=''></option>";
-                    echo "<option value='saturday'>saturday</option>";
-                    echo "<option value='sunday'>sunday</option>";
-                echo "</select><br>";
-                ?>
+                <h2>Event Date:</h2>
+                <select id='dateselect' onChange='displayEvent(this.value)'>
+                    <option value=''></option>
+                    <option value='saturday'>saturday</option>
+                    <option value='sunday'>sunday</option>
+                </select><br>
                 <div id="displayevent">
-                </div>
+                <table>
+                    <tr>
+                        <th>Session</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Room</th>
+                    <tr>
+                </table>
+            </div>
 
             </div>
             <div id="eventManipulation">
                 <h2>Select Session:</h2>
                 <div id="sessionselectdiv">
                 <?php
-                        //Gets the possible rooms to select from";
+                    //Gets the possible rooms to select from";
                     $query = "SELECT DISTINCT sessionName, TIME_FORMAT(startTime,'%h:%i%p') as startTimeReadable, startTime, room FROM SessionEvent;";
                     $stmt = $pdo->prepare($query);
                     $stmt->execute();
+                    //Displays a select menu with all unique session events
                     echo "<select id='sessionselect' name='session' onChange=provideChoices(this.value) form='setEventForm'>";
                         echo "<option value=''></option>";
                         while ($session = $stmt->fetch()){
@@ -60,10 +62,7 @@
 
                     ?>
                 </div>
-                
-                <div id="displayoptions">
-                    <p>output</p>
-                </div>
+                <div id="displayoptions"></div>
             </div>
         </div>
         <footer>
@@ -87,16 +86,15 @@
                 console.log('Fetch Error :-S', err);
             });
         }
-        //function is used both by room select and time select. 
-        //Either one selected provides a list of submit buttons
+        //function is used to fetch select items
         function provideChoices(session){
-            //gets radio and button, putting in display div
+            //target div to display select items in
             let display = document.getElementById("displayoptions");
-            fetch("./getSelects.php?sessionName=" + session)//sends the time 
+            fetch("./getSelects.php?sessionName=" + session)//sends unique session information
             .then((response) => {
                 if (response.status == 200){
                     return response.text().then((text) => {
-                        display.innerHTML = text;
+                        display.innerHTML = text;//the select items
                     });
                 }
             })
