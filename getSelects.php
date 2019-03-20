@@ -3,6 +3,7 @@
     // Allows the use of a single pdo variable throughout all scripts
     include './pdo.php';
     //gets possible day selections
+    echo "<h2>Change Session:</h2><br>";
     echo "<div id='dayselectdiv'>";
         echo "<h3>Select Day:</h3>";
         //Gets the days to select from;

@@ -40,18 +40,21 @@
 
             </div>
             <div id="eventManipulation">
-                <h2>Change Session:</h2>
+                <h2>Select Session:</h2>
                 <div id="sessionselectdiv">
                 <?php
                         //Gets the possible rooms to select from";
-                    $query = "SELECT DISTINCT sessionName FROM SessionEvent;";
+                    $query = "SELECT DISTINCT sessionName, TIME_FORMAT(startTime,'%h:%i%p') as startTimeReadable, startTime, room FROM SessionEvent;";
                     $stmt = $pdo->prepare($query);
                     $stmt->execute();
-                    echo "<select id='sessionselect' name='sessionname' onChange=provideChoices(this.value) form='setEventForm'>";
+                    echo "<select id='sessionselect' name='session' onChange=provideChoices(this.value) form='setEventForm'>";
                         echo "<option value=''></option>";
                         while ($session = $stmt->fetch()){
                             $sessionName = $session["sessionName"];
-                            echo "<option value=" . $sessionName . ">" . $sessionName . "</option>";
+                            $startTime = $session["startTime"];
+                            $startTimeReadable = $session["startTimeReadable"];
+                            $room = $session["room"];
+                            echo "<option value='startTime=" . $startTime . "&room=" . $room . "&name=" . $sessionName . "'>" . $sessionName . ", Room: " . $room . ", " . $startTimeReadable . "</option>";
                         }
                     echo "</select><br>";
 
