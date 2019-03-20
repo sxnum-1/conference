@@ -30,11 +30,11 @@
         echo "<h3>Time:</h3>";
         echo "<select id='timeselect' name='sessiontime' form='setEventForm'>";
         $min = 0;
-        for($hr = 8; $hr <= 20; $hr++){ //assuming less 4 floors
+        for($hr = 8; $hr <= 20; $hr++){ //assuming 12 hrs for conference to run
             for($i = 0; $i < 2; $i++){
-                //Time stamp used for easy conversion
-                $stamp = mktime($hr, $min, 1, 2, 9, 2019); //assumes saturday as default. Will change if user specifies 'sunday'
-                $time = date("h:i A", $stamp);
+                //Time stamp used for easy conversion and inserting into database
+                $stamp = mktime($hr+1, $min, 1, 2, 9, 2019); //assumes saturday as default. Will change if user specifies 'sunday'
+                $time = date("h:i A", $stamp - 3600); //Not sure why, but to adjust time shown must subtract by an hour.
                 //time stamp will be passed to the form
                 echo "<option value=" . $stamp . ">" . $time . "</option>";
                 if ($min == 0){
