@@ -7,7 +7,7 @@
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     // Creates a table with the information. The information that is echoed is sent to fetch API.
-    echo "<table>";
+    echo "<table id='displayTable'>";
     echo "<tr><th>Session</th><th>Start Time</th><th>End Time</th><th>Room</th>";
     while ($event = $stmt->fetch()) {
         $sessionName = $event["sessionName"];

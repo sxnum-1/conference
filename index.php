@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="conference.css" type="text/css" rel="stylesheet" />
+        <link href="./conference.css" type="text/css" rel="stylesheet" />
+        <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+        
+        </script>
     </head>
     <body>
         <nav>
@@ -24,8 +30,7 @@
             <div id="listDayEvents">
                 <h2>Event Date:</h2>
                 <select id='dateselect' onChange='displayEvent(this.value)'>
-                    <option value=''></option>
-                    <option value='saturday'>saturday</option>
+                    <option value='saturday' selected='selected'>saturday</option>
                     <option value='sunday'>sunday</option>
                 </select><br>
                 <div id="displayevent">
@@ -41,7 +46,7 @@
 
             </div>
             <div id="eventManipulation">
-                <h2>Select Session:</h2>
+                <h2>Select Session to Change:</h2>
                 <div id="sessionselectdiv">
                 <?php
                     //Gets the possible rooms to select from";
@@ -50,7 +55,6 @@
                     $stmt->execute();
                     //Displays a select menu with all unique session events
                     echo "<select id='sessionselect' name='session' onChange=provideChoices(this.value) form='setEventForm'>";
-                        echo "<option value=''></option>";
                         while ($session = $stmt->fetch()){
                             $sessionName = $session["sessionName"];
                             $startTime = $session["startTime"];
@@ -58,7 +62,7 @@
                             $room = $session["room"];
                             echo "<option value='startTime=" . $startTime . "&room=" . $room . "&name=" . $sessionName . "'>" . $sessionName . ", Room: " . $room . ", " . $startTimeReadable . "</option>";
                         }
-                    echo "</select><br>";
+                    echo "</select>";
 
                     ?>
                 </div>
@@ -75,14 +79,13 @@
         //gets the div to display events for specific date.
             let content  = document.getElementById("displayevent");
             fetch("./displayEvent.php?day=" + day)
-            .then((response) => {
+            .then(response => {
                 if (response.status == 200){
-                    return response.text().then((text) => {
-                        content.innerHTML = text;
-                    });
+                    return response.text()
                 }
-            })
-            .catch((err) => {
+            }).then(text => {
+                    content.innerHTML = text;
+            }).catch((err) => {
                 console.log('Fetch Error :-S', err);
             });
         }
