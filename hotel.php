@@ -17,15 +17,14 @@
       </nav>
     <header>
       <!-- placeholder -->
-      <h1>Stuff for the hotel</h1>
+      <h1>Hotel</h1>
     </header>
     <div class="main">
        <!-- set up PDO -->
        <?php include 'pdo.php'; ?>
       <!--Company and job related information -->
       <div id="studentrooms">
-        <h2>list all students in a room</h2>
-        <form name = 'roomSelection' action = '' method = 'post'>
+        <h2>Students in a room</h2>
             <p>Select a Room Number you would like to check:</p>
             
             <?php
@@ -33,32 +32,15 @@
               $query = 'SELECT roomNumber FROM hotelroom;';
               $stmt = $pdo->prepare($query);
               $stmt->execute();
-              echo "<select name=\"roomNumber\" onChange=\"displayRoom(this)\">";
+              echo "<select id=\"roomNumber\" onChange=\"displayStudentsInRoom(this.value)\">";
               //Constructs the options looping from the query call. 
               while ($room = $stmt->fetch()){
                 echo "<option value=" . $room['roomNumber'] . ">" . $room["roomNumber"] . "</option>";
               }
-              echo "</select><br>";
+              echo "</select><br><br>";
             ?>
-            <input type="submit">
-        </form>
         <div id="display"></div>
       </div>
-      <?php
-        //Lists the students name and id
-        $query = 'SELECT CONCAT(firstName,\', \',lastName) as FName FROM student;';
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
-        //creates a table
-        echo "<table>";
-        echo "<tr><th>Name</th></tr>";
-        // Loops through and displays each row.
-        while ($name = $stmt->fetch()) {
-          $name = $name["FName"];
-          echo "<tr><td>$name</td></tr>";
-        }
-        echo "</table>";
-      ?>
     </div>
     <footer>
       
@@ -67,28 +49,19 @@
 
   <script>
     // Function used to display job specific rolls taking in the selected company as a parameter
-    function displayRoom(room){
-      //Target div to display info
-      let content = document.roomSelection.submit();
-      const query = `
-        <?php
-          // $query = "SELECT roomNumber FROM HotelRoom";
-          $room = isset($_POST['roomNumber']) ? $_POST['roomNumber'] : false;;
-          $query = "SELECT CONCAT(student.firstName, student.lastName, roomNumber) as FName FROM student WHERE student.roomNumber = \"$room\" GROUP BY student.roomNumber";
-          $stmt = $pdo->prepare($query);
-          $stmt->execute();
-          
-          echo "<table>";
-          echo "<tr><th> Name </th></tr>";
-          while ($i = $stmt->fetch()) {
-              $i = $i["FName"];
-              echo "<tr><td>$i</td></tr>";
+    function displayStudentsInRoom(room){
+      //gets the div to display events for specific date.
+      let content  = document.getElementById("display");
+      fetch("./getHotelStudents.php?room=" + room)
+      .then(response => {
+          if (response.status == 200){
+              return response.text()
           }
-          echo "</table>";
-          echo "</select><br>";
-          ?>
-        `;
-      content.innerHTML = "<h3>" + "Student Name" + "</h3>" + query;
+      }).then(text => {
+              content.innerHTML = text;
+      }).catch((err) => {
+          console.log('Fetch Error :-S', err);
+      });
     }
   </script>
 </body>

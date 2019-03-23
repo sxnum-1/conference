@@ -22,12 +22,9 @@
       </nav>
     <header>
       <!-- placeholder -->
-      <h1>stuff for sponsors/companies</h1>
+      <h1>Sponsors</h1>
     </header>
     <div class="main">
-      <h2>list the sponsors and their sponsorship levels</h2>
-      <h2>add a new sponsoring company</h2>
-      <h2>delete a sponsoring company and all its attendees</h2>
     
       <?php include 'pdo.php'; ?>
       
@@ -65,7 +62,7 @@
 
 
       <div id='newsponsor'>
-            <h3>Sponsors</h3>
+            <h2>List of sponsors</h2>
             <?php
             $query = "SELECT companyName, companyLocation, ranking FROM SponsorCompany";
             $stmt = $pdo->prepare($query);
@@ -93,7 +90,7 @@
                 <input type="radio" name="sponsor" value="Gold">Gold<br>
                 <input type="radio" name="sponsor" value="Silver">Silver<br>
                 <input type="radio" name="sponsor" value="Bronze">Bronze<br>
-                <input type = 'hidden' name = "var" value = 0>
+                <input type = 'hidden' name = "var" value = 0><br>
                 <input type="submit">
                 <div id="attendeeselection"></div>
             </form>
@@ -102,7 +99,7 @@
             <form name = "deletesponsorform" action = "" method = "post">
               <p> Company Name to Delete</p>
               <input type = 'text' name = "deleteName"><br>
-              <input type = 'hidden' name = "var" value = 1>
+              <input type = 'hidden' name = "var" value = 1><br>
               <input type= "submit">
             </form>
     <!-- placeholder -->
