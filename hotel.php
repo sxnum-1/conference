@@ -29,7 +29,7 @@
             
             <?php
               // Select Room number from hotel rooms
-              $query = 'SELECT roomNumber FROM hotelroom;';
+              $query = 'SELECT roomNumber FROM HotelRoom;';
               $stmt = $pdo->prepare($query);
               $stmt->execute();
               echo "<select id=\"roomNumber\" onChange=\"displayStudentsInRoom(this.value)\">";
