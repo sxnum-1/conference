@@ -35,8 +35,8 @@
             for($i = 0; $i < 2; $i++){
                 //Time stamp used for easy conversion and inserting into database
                 date_default_timezone_set('UTC');
-                $stamp = mktime($hr + 1, $min, 1, 2, 9, 2019); //assumes saturday as default. Will change if user specifies 'sunday'
-                $time = date("h:i A", $stamp - 3600); //Not sure why, but to adjust time shown must subtract by an hour.
+                $stamp = mktime($hr, $min, 1, 2, 9, 2019); //assumes saturday as default. Will change if user specifies 'sunday'
+                $time = date("h:i A", $stamp); //Not sure why, but to adjust time shown must subtract by an hour.
                 //time stamp will be passed to the form
                 echo "<option value=" . $stamp . ">" . $time . "</option>";
                 if ($min == 0){
