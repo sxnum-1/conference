@@ -17,14 +17,53 @@
       </nav>
     <header>
       <!-- placeholder -->
-      <h1>Stuff for the hotel</h1>
+      <h1>Hotel</h1>
     </header>
     <div class="main">
-      <h2>list all students for a room</h2>
+       <!-- set up PDO -->
+       <?php include 'pdo.php'; ?>
+      <!--Company and job related information -->
+      <div id="studentrooms">
+        <h2>Students in a room</h2>
+            <p>Select a Room Number you would like to check:</p>
+            
+            <?php
+              // Select Room number from hotel rooms
+              $query = 'SELECT roomNumber FROM hotelroom;';
+              $stmt = $pdo->prepare($query);
+              $stmt->execute();
+              echo "<select id=\"roomNumber\" onChange=\"displayStudentsInRoom(this.value)\">";
+              //Constructs the options looping from the query call. 
+              while ($room = $stmt->fetch()){
+                echo "<option value=" . $room['roomNumber'] . ">" . $room["roomNumber"] . "</option>";
+              }
+              echo "</select><br><br>";
+            ?>
+        <div id="display"></div>
+      </div>
     </div>
     <footer>
       
     </footer>
     <!-- placeholder -->
-  </body>
+
+  <script>
+    // Function used to display job specific rolls taking in the selected company as a parameter
+    function displayStudentsInRoom(room){
+      //gets the div to display events for specific date.
+      let content  = document.getElementById("display");
+      fetch("./getHotelStudents.php?room=" + room)
+      .then(response => {
+          if (response.status == 200){
+              return response.text()
+          }
+      }).then(text => {
+              content.innerHTML = text;
+      }).catch((err) => {
+          console.log('Fetch Error :-S', err);
+      });
+    }
+  </script>
+</body>
+
 </html>
