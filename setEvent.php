@@ -19,10 +19,9 @@
             $origRoom = $output["room"];
             $origName = $output["name"];
             //Queries the database looking for duplicates of the event
-            $query = "SELECT * FROM SessionEvent WHERE startTime=$time AND room=$room;";
+            $query = "SELECT * FROM SessionEvent WHERE startTime=FROM_UNIXTIME($time) AND room='$room';";
             $stmt = $pdo->prepare($query);
             $stmt->execute();
-
             //If not in the database
             if ($stmt->rowCount() <= 0){
                 //deletes existing entry
