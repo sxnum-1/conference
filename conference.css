@@ -84,6 +84,13 @@ td,th {
   padding: 0.5rem;
   text-align: center;
 }
+#backbutton{
+    text-decoration:none;
+    display: block;
+    padding: 5px;
+    color: black;
+    border: 1px solid #999;
+}
 
 
 /********************************************************************************

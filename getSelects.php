@@ -28,12 +28,14 @@
     //get the possible times to select from
     echo "<div id='divtimeselect'>";
         echo "<h3>Time:</h3>";
+        echo "<p>(Sessions Run for an Hour Long)</p>";
         echo "<select id='timeselect' name='sessiontime' form='setEventForm'>";
         $min = 0;
+        date_default_timezone_set('UTC');
         for($hr = 8; $hr <= 20; $hr++){ //assuming 12 hrs for conference to run
             for($i = 0; $i < 2; $i++){
                 //Time stamp used for easy conversion and inserting into database
-                $stamp = mktime($hr+1, $min, 1, 2, 9, 2019); //assumes saturday as default. Will change if user specifies 'sunday'
+                $stamp = mktime($hr + 1, $min, 1, 2, 9, 2019); //assumes saturday as default. Will change if user specifies 'sunday'
                 $time = date("h:i A", $stamp - 3600); //Not sure why, but to adjust time shown must subtract by an hour.
                 //time stamp will be passed to the form
                 echo "<option value=" . $stamp . ">" . $time . "</option>";

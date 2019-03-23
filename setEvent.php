@@ -19,7 +19,7 @@
             $origRoom = $output["room"];
             $origName = $output["name"];
             //Queries the database looking for duplicates of the event
-            $query = "SELECT * FROM SessionEvent WHERE sessionName='$origName' AND room='$room' AND startTime=FROM_UNIXTIME($time);";
+            $query = "SELECT * FROM SessionEvent WHERE room='$room' AND startTime=FROM_UNIXTIME($time);";
             $stmt = $pdo->prepare($query);
             $stmt->execute();
 
@@ -53,7 +53,7 @@
                 echo "<p>Cannot include duplicates. Please try again</p>";
             }
             // This button is used to go back to the event page
-            echo "<button><a href='http://192.168.64.3/conference/index.php'>Back</a></button>";
+            echo "<a id='backbutton' href='./index.php'>Back</a>";
         ?>
     </body>
 </html>
