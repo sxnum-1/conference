@@ -1,6 +1,6 @@
-<!-- Allows the use of a single pdo variable throughout all scripts -->
-<?php include './pdo.php'; ?>
 <?php
+    // Allows the use of a single pdo variable throughout all scripts
+    include './pdo.php';
     // Gets the information passed through using fetch API
     $company = $_GET["company"];
     // Queries the database looking for jobs specific to the company selected

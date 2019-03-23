@@ -16,7 +16,7 @@ body {
   padding: 0;
   display: grid;
   grid-template-columns: 15% 35% 35% 15%;
-  grid-template-rows: 10% 20% 60% 10%;
+  grid-template-rows: 10% 10% auto 10%;
   grid-template-areas:
    "navbar navbar navbar navbar"
    ". header header ."
@@ -74,7 +74,23 @@ header{
 .main{
   grid-area: main;
 }
+/* Table styling */
+table{
+  border-collapse: collapse;
+}
 
+td,th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: center;
+}
+#backbutton{
+    text-decoration:none;
+    display: block;
+    padding: 5px;
+    color: black;
+    border: 1px solid #999;
+}
 
 
 /********************************************************************************
