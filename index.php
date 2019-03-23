@@ -111,7 +111,7 @@
                 console.log('Fetch Error :-S', err);
             });
         }
-        window.addEventListener("load",init, true);
+        window.addEventListener("load",init);
     </script>
 </html>
 
