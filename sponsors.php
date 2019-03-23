@@ -35,31 +35,30 @@
       <div id="newsponsorpersistence">
             <?php
             if (!empty($_POST)) {
-              $delete = isset($_POST['var']) ? $_POST['var'] : true;;
-              if ($delete == true){
-                echo "2";
-              } else {
-                echo "3";
-              }
-                // empty values are turned into empty strings, not 'NULL'
-                /*
-                if ($attendeeType == "Student") {
-                    $roomnumber = $_POST["roomnumber"];
-                    $query = "INSERT INTO $attendeeType(firstName, lastName, email, roomNumber) VALUES(\"$firstname\", \"$lastname\", \"$email\", \"$roomnumber\")";
-                } else if ($attendeeType == "Sponsor") {
-                    $sponsoringcompany = $_POST["sponsoringcompany"];
-                    $query = "INSERT INTO $attendeeType(firstName, lastName, email, emailsSent, companyName) VALUES(\"$firstname\", \"$lastname\", \"$email\", 0, \"$sponsoringcompany\")";
-                } else { // Professional
-                    $query = "INSERT INTO $attendeeType(firstName, lastName, email) VALUES(\"$firstname\", \"$lastname\", \"$email\")";
-                }
+              $delete = isset($_POST['var']) ? $_POST['var'] : false;;
+              
+              if ($delete == 0){
+                $sponsor = ucwords($_POST["sponsor"]);
+                $companyName = $_POST["companyName"];
+                $companyLocation = $_POST["companyLocation"];
+                $query = "insert into SponsorCompany values (\"$companyName\",\"$companyLocation\", \"$sponsor\");";
                 $stmt = $pdo->prepare($query);
                 $hasPersisted = $stmt->execute();
 
                 if ($hasPersisted)
-                    echo "New attendee successfully added";
+                    echo "New sponsoring company successfully added";
                 else
-                    echo "Error adding the new attendee";
-                */
+                    echo "Error adding the new company";
+              } elseif ($delete == 1){
+                $sponsor = $_POST['deleteName'];
+                $query = "DELETE FROM SponsorCompany WHERE companyName='$sponsor'";
+                $stmt = $pdo->prepare($query);
+                $hasPersisted = $stmt->execute();
+                if ($hasPersisted)
+                    echo "Company has been deleted";
+                else
+                    echo "Error deleting company";
+              }
             }
             ?>
         </div>
@@ -94,15 +93,17 @@
                 <input type="radio" name="sponsor" value="Gold">Gold<br>
                 <input type="radio" name="sponsor" value="Silver">Silver<br>
                 <input type="radio" name="sponsor" value="Bronze">Bronze<br>
+                <input type = 'hidden' name = "var" value = 0>
                 <input type="submit">
                 <div id="attendeeselection"></div>
             </form>
             <h2>Delete a Sponsor Company</h2> 
+
             <form name = "deletesponsorform" action = "" method = "post">
               <p> Company Name to Delete</p>
               <input type = 'text' name = "deleteName"><br>
-              <input type="submit">
-              <input type = 'hidden' name = "var" value = false>
+              <input type = 'hidden' name = "var" value = 1>
+              <input type= "submit">
             </form>
     <!-- placeholder -->
     </div>
