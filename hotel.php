@@ -25,23 +25,22 @@
       <!--Company and job related information -->
       <div id="studentrooms">
         <h2>list all students in a room</h2>
-        <div id="roomselection">
-          <p>Select a Room Number you would like to check:</p>
-          
-          <?php
-            // Select Room number from hotel rooms
-            $query = 'SELECT roomNumber FROM hotelroom;';
-            $stmt = $pdo->prepare($query);
-            $stmt->execute();
-            echo "<select name=\"roomNumber\" onChange=\"displayRoom(this)\">";
-            echo "<option value=''></option>";
-            //Constructs the options looping from the query call. 
-            while ($room = $stmt->fetch()){
-              echo "<option value=" . $room['roomNumber'] . ">" . $room["roomNumber"] . "</option>";
-            }
-            echo "</select><br>";
-          ?>
-        </div>
+        <form name = 'roomSelection' action = '' method = 'post'>
+            <p>Select a Room Number you would like to check:</p>
+            
+            <?php
+              // Select Room number from hotel rooms
+              $query = 'SELECT roomNumber FROM hotelroom;';
+              $stmt = $pdo->prepare($query);
+              $stmt->execute();
+              echo "<select name=\"roomNumber\" onChange=\"displayRoom(this)\">";
+              //Constructs the options looping from the query call. 
+              while ($room = $stmt->fetch()){
+                echo "<option value=" . $room['roomNumber'] . ">" . $room["roomNumber"] . "</option>";
+              }
+              echo "</select><br>";
+            ?>
+        </form>
         <div id="display"></div>
       </div>
       <?php
@@ -70,18 +69,16 @@
     function displayRoom(room){
       //Target div to display info
       let content = document.getElementById("display");
-      let a = room.value;
       const query = `
         <?php
           // $query = "SELECT roomNumber FROM HotelRoom";
-          $room = '';
-          $room = isset($_POST['roomNumber']) ? $_POST['roomNumber'] : '';
-          $query = "SELECT student.firstName, student.lastName, roomNumber FROM student WHERE student.roomNumber = '$room' GROUP BY student.roomNumber";
+          $room = isset($_POST['roomNumber']) ? $_POST['roomNumber'] : false;;
+          $query = "SELECT student.firstName, student.lastName, roomNumber FROM student WHERE student.roomNumber = \"$room\" GROUP BY student.roomNumber";
           $stmt = $pdo->prepare($query);
           $stmt->execute();
 
-          while ($room = $stmt->fetch()) {
-              echo "<option>$room</option>";
+          while ($i = $stmt->fetch()) {
+              echo "<option>$i</option>";
           }
 
           echo "</select><br>";
