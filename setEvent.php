@@ -19,28 +19,21 @@
             $origRoom = $output["room"];
             $origName = $output["name"];
             //Queries the database looking for duplicates of the event
-            $query = "SELECT * FROM SessionEvent WHERE room='$room' AND startTime=FROM_UNIXTIME($time);";
+            $query = "SELECT * FROM SessionEvent WHERE startTime=$time AND room=$room;";
             $stmt = $pdo->prepare($query);
             $stmt->execute();
 
             //If not in the database
             if ($stmt->rowCount() <= 0){
                 //deletes existing entry
-                $deleteQuery = "DELETE FROM SessionEvent WHERE startTime='$origTime' AND room='$origRoom'";
                 if ($day == "sunday"){
                     //updates the session event to a new time.
                     $time = $time + 86400;//this constant represents 24hrs in seconds
                 }
                 // Sessions are assumed to be an hour long.
                 $endTime = $time + 3600;//Represents an hour       
-                //the query to reinsert the value with updated values.
-                $updateQuery = "INSERT INTO SessionEvent VALUES('$origName', FROM_UNIXTIME($time), FROM_UNIXTIME($endTime),'$room');";
-                //delete query
-                $stmt = $pdo->prepare($deleteQuery);
-                if(! $stmt->execute()){
-                    echo "<p>Something went wrong. Could not update entry";
-                }
-                //reinserts value
+                $updateQuery = "UPDATE SessionEvent SET startTime=FROM_UNIXTIME($time), endTime=FROM_UNIXTIME($endTime),room='$room' WHERE sessionName='$origName';";
+                //update row value
                 $stmt = $pdo->prepare($updateQuery);
                 if(! $stmt->execute()){
                     echo "<p>Something went wrong. Could not update entry";
