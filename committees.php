@@ -33,11 +33,13 @@
             $query = 'SELECT subcommitteename FROM Subcommittee;';
             $stmt = $pdo->prepare($query);
             $stmt->execute();
-            echo "<select name=\"subcommitteename\" onChange=\"\">";
+
+            echo "<select name=\"subcommitteename\" onChange=\"displayCommittee(this)\">";
             echo "<option value=''></option>";
             //Constructs the options looping from the query call. 
             while ($name = $stmt->fetch()){
-              echo "<option value=" . $name['subcommitteename'] . ">" . $name["subcommitteename"] . "</option>";
+              $subcommitteename = $name["subcommitteename"];
+              echo "<option value=\"$subcommitteename\">$subcommitteename</option>";
             }
             echo "</select><br>";
           ?>
@@ -45,8 +47,8 @@
         <div id="display"></div>
       </div>
       <?php
-        //Lists the students name and id
-        $query = 'SELECT CONCAT(firstName,\', \',lastName) as FName FROM isMember JOIN CommitteeMember ON CommitteeMember.id = isMember.memberId;';
+        //Lists the name of the subcommittees
+        $query = 'SELECT subcommitteeName from Subcommittee';
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         //creates a table
@@ -54,7 +56,7 @@
         echo "<tr><th>Name</th></tr>";
         // Loops through and displays each row.
         while ($name = $stmt->fetch()) {
-          $name = $name["FName"];
+          $name = $name["subcommitteeName"];
           echo "<tr><td>$name</td></tr>";
         }
         echo "</table>";
@@ -63,5 +65,31 @@
     <footer>
 
     </footer>
+  
+    <script>
+    // Function used to display job specific rolls taking in the selected company as a parameter
+    function displayCommittee(company){
+      //Target div to display info
+      let content = document.getElementById("display");
+      //Uses fetch API to call script that provides database data dynamically.
+      fetch("./committeeDisplay.php?committee="+company.value)
+        .then((response) => { //Promises 1
+            if (response.status == 200){
+              return response.text().then((text) => { //2nd layer promises
+                //Gets the html data from the php file and displays all info in the target div.
+                content.innerHTML = "<h3>" + company.value + "</h3>" + text;
+              });
+              return
+            }
+          }
+        )
+        .catch(
+          function(err){
+            console.log('Fetch Error :-S', err);
+          }
+        );
+    }
+
+  </script>
   </body>
 </html>
