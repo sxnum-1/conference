@@ -40,6 +40,7 @@
               }
               echo "</select><br>";
             ?>
+            <input type="submit">
         </form>
         <div id="display"></div>
       </div>
@@ -68,19 +69,22 @@
     // Function used to display job specific rolls taking in the selected company as a parameter
     function displayRoom(room){
       //Target div to display info
-      let content = document.getElementById("display");
+      let content = document.roomSelection.submit();
       const query = `
         <?php
           // $query = "SELECT roomNumber FROM HotelRoom";
           $room = isset($_POST['roomNumber']) ? $_POST['roomNumber'] : false;;
-          $query = "SELECT student.firstName, student.lastName, roomNumber FROM student WHERE student.roomNumber = \"$room\" GROUP BY student.roomNumber";
+          $query = "SELECT CONCAT(student.firstName, student.lastName, roomNumber) as FName FROM student WHERE student.roomNumber = \"$room\" GROUP BY student.roomNumber";
           $stmt = $pdo->prepare($query);
           $stmt->execute();
-
+          
+          echo "<table>";
+          echo "<tr><th> Name </th></tr>";
           while ($i = $stmt->fetch()) {
-              echo "<option>$i</option>";
+              $i = $i["FName"];
+              echo "<tr><td>$i</td></tr>";
           }
-
+          echo "</table>";
           echo "</select><br>";
           ?>
         `;
