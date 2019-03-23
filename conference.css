@@ -87,9 +87,22 @@ td,th {
 #backbutton{
     text-decoration:none;
     display: block;
-    padding: 5px;
+    padding-top: 5%;
+    text-align: center;
     color: black;
-    border: 1px solid #999;
+    border: 1px solid #999; 
+    background-color: rgb(224, 224, 224);
+    box-shadow: 5px 5px 5px #a3a3a3;
+}
+#backbutton:hover{
+    text-decoration:none;
+    display: block;
+    padding-top: 5%;
+    text-align: center;
+    color: black;
+    border: 1px solid rgb(189, 189, 189); 
+    background-color: rgb(201, 201, 201);
+    box-shadow: 2px 2px 2px #333333;
 }
 
 
