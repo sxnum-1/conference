@@ -80,8 +80,8 @@
         function init(){
             let displayDay = document.getElementById("dateselect");
             let changeSession = document.getElementById("sessionselect");
-            displayEvent(displayDay[0].value);
-            provideChoices(changeSession[0].value);
+            displayEvent(displayDay.value);
+            provideChoices(changeSession.value);
         }
         //Function is used to display events associated with a specific day
         function displayEvent(day){

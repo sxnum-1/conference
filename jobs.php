@@ -38,7 +38,8 @@
                         echo "<select id='companyname' onChange='displayJobs(this.value)'>";
                         //Constructs the options looping from the query call. 
                         while ($company = $stmt->fetch()){
-                            echo "<option value=" . $company['companyName'] . ">" . $company["companyName"] . "</option>";
+                            $companyName = $company["companyName"];
+                            echo "<option value=\"$companyName\">$companyName</option>";
                         }
                         echo "</select><br>";
                     ?>
@@ -93,12 +94,10 @@
                 
             });
         }
-        function init(){
-            let displayCompany = document.getElementById("companyname");
-            displayJobs(displayCompany[0].value);
-        }
-        window.addEventListener("load",init);
-
+        window.addEventListener("load", () => {
+            const select = document.getElementById('companyname');
+            displayJobs(select.value);
+        });
     </script>
 
 

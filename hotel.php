@@ -35,7 +35,9 @@
               echo "<select id=\"roomNumber\" onChange=\"displayStudentsInRoom(this.value)\">";
               //Constructs the options looping from the query call. 
               while ($room = $stmt->fetch()){
-                echo "<option value=" . $room['roomNumber'] . ">" . $room["roomNumber"] . "</option>";
+                $roomNumber = $room["roomNumber"];
+                echo "<option value=$roomNumber>$roomNumber</option>";
+                // echo "<option value=" . $room['roomNumber'] . ">" . $room["roomNumber"] . "</option>";
               }
               echo "</select><br><br>";
             ?>
@@ -63,6 +65,10 @@
           console.log('Fetch Error :-S', err);
       });
     }
+    window.addEventListener("load", () => {
+      const select = document.getElementById('roomNumber');
+      displayStudentsInRoom(select.value);
+    });
   </script>
 </body>
 

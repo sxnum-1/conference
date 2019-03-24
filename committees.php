@@ -34,7 +34,7 @@
             $stmt = $pdo->prepare($query);
             $stmt->execute();
 
-            echo "<select name=\"subcommitteename\" onChange=\"displayCommittee(this)\">";
+            echo "<select id=\"subcommitteename\" onChange=\"displayCommittee(this)\">";
             echo "<option value=''></option>";
             //Constructs the options looping from the query call. 
             while ($name = $stmt->fetch()){
@@ -89,6 +89,10 @@
           }
         );
     }
+    window.addEventListener('load', () => {
+      const sub = document.getElementById('subcommitteename');
+      displayCommittee(sub);
+    });
 
   </script>
   </body>
