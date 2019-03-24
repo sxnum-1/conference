@@ -17,14 +17,13 @@
         </nav>
         <header>
             <!-- placeholder -->
-            <h1>Jobs</h1>
+            <h1>Jobs:</h1>
         </header>
         <div class="main">
             <!-- set up PDO -->
             <?php include 'pdo.php'; ?>
             <!--Company and job related information -->
-            <div id="companyjobs">
-                <div id="">
+            <div class="box-component">
                 <h2>Lists jobs at a Company:</h2>
                 <div class='select-one-line-header'>
                     <p>Company Name:</p>
@@ -46,24 +45,25 @@
                 </div>
                 <div id="companyjobdisplay"></div>
             </div>
-
-            <h2>list all jobs</h2>
-            <?php
-                //Lists the job title and locations
-                $query = 'SELECT jobTitle, CONCAT(jobCity,\', \',jobProvince) as jobLocation FROM JobPostings;';
-                $stmt = $pdo->prepare($query);
-                $stmt->execute();
-                //creates a table
-                echo "<table>";
-                    echo "<tr><th>Title</th><th>Location</th></tr>";
-                    // Loops through and displays each row.
-                    while ($job = $stmt->fetch()) {
-                        $jobTitle = $job["jobTitle"];
-                        $jobLocation = $job["jobLocation"];
-                        echo "<tr><td>$jobTitle</td><td>$jobLocation</td></tr>";
-                    }
-                echo "</table>";
-            ?>
+            <div class="box-component">
+                <h2>list all jobs</h2>
+                <?php
+                    //Lists the job title and locations
+                    $query = 'SELECT jobTitle, CONCAT(jobCity,\', \',jobProvince) as jobLocation FROM JobPostings;';
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute();
+                    //creates a table
+                    echo "<table>";
+                        echo "<tr><th>Title</th><th>Location</th></tr>";
+                        // Loops through and displays each row.
+                        while ($job = $stmt->fetch()) {
+                            $jobTitle = $job["jobTitle"];
+                            $jobLocation = $job["jobLocation"];
+                            echo "<tr><td>$jobTitle</td><td>$jobLocation</td></tr>";
+                        }
+                    echo "</table>";
+                ?>
+            </div>
         </div>
         <footer>
             

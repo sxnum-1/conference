@@ -62,7 +62,7 @@
             ?>
         </div>
 
-        <div id='newattendee'>
+        <div id='newattendee'class="box-component">
 
             <h2>Add a new attendee</h2>
 
@@ -77,55 +77,61 @@
 
         <div id="listattendees">
 
-            <h2>Attendees</h2>
-            <h3>Students</h3>
-            <?php
-            $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email, roomNumber FROM Student";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute();
+            <h2>List of Attendees:</h2>
+            <div class="box-component">
+                <h3>Students</h3>
+                <?php
+                $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email, roomNumber FROM Student";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute();
 
-            echo "<table>";
-            echo "<tr><th>Name</th><th>Email</th><th>Hotel Room Number</th></tr>";
-            while ($student = $stmt->fetch()) {
-                $fullName = $student["fullName"];
-                $email = $student["email"];
-                $roomNumber = $student["roomNumber"];
-                echo "<tr><td>$fullName</td><td>$email</td><td>$roomNumber</td></tr>";
-            }
-            echo "</table>";
-            ?>
-            <h3>Professionals</h3>
-            <?php
-            $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email FROM Professional";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute();
+                echo "<table>";
+                echo "<tr><th>Name</th><th>Email</th><th>Hotel Room Number</th></tr>";
+                while ($student = $stmt->fetch()) {
+                    $fullName = $student["fullName"];
+                    $email = $student["email"];
+                    $roomNumber = $student["roomNumber"];
+                    echo "<tr><td>$fullName</td><td>$email</td><td>$roomNumber</td></tr>";
+                }
+                echo "</table>";
+                ?>
+            </div>
+            <div class="box-component">
+                <h3>Professionals</h3>
+                <?php
+                $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email FROM Professional";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute();
 
-            echo "<table>";
-            echo "<tr><th>Name</th><th>Email</th></tr>";
-            while ($professional = $stmt->fetch()) {
-                $fullName = $professional["fullName"];
-                $email = $professional["email"];
-                echo "<tr><td>$fullName</td><td>$email</td></tr>";
-            }
-            echo "</table>";
-            ?>
-            <h3>Sponsors</h3>
-            <?php
-            $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email, emailsSent, companyName FROM Sponsor";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute();
+                echo "<table>";
+                echo "<tr><th>Name</th><th>Email</th></tr>";
+                while ($professional = $stmt->fetch()) {
+                    $fullName = $professional["fullName"];
+                    $email = $professional["email"];
+                    echo "<tr><td>$fullName</td><td>$email</td></tr>";
+                }
+                echo "</table>";
+                ?>
+            </div>
+            <div class="box-component">
+                <h3>Sponsors</h3>
+                <?php
+                $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email, emailsSent, companyName FROM Sponsor";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute();
 
-            echo "<table>";
-            echo "<tr><th>Name</th><th>Email</th><th>Emails Sent</th><th>Representative Sponsor</th></tr>";
-            while ($sponsor = $stmt->fetch()) {
-                $fullName = $sponsor["fullName"];
-                $email = $sponsor["email"];
-                $emailsSent = $sponsor["emailsSent"];
-                $companyName = $sponsor["companyName"];
-                echo "<tr><td>$fullName</td><td>$email</td><td>$emailsSent</td><td>$companyName</td></tr>";
-            }
-            echo "</table>";
-            ?>
+                echo "<table>";
+                echo "<tr><th>Name</th><th>Email</th><th>Emails Sent</th><th>Representative Sponsor</th></tr>";
+                while ($sponsor = $stmt->fetch()) {
+                    $fullName = $sponsor["fullName"];
+                    $email = $sponsor["email"];
+                    $emailsSent = $sponsor["emailsSent"];
+                    $companyName = $sponsor["companyName"];
+                    echo "<tr><td>$fullName</td><td>$email</td><td>$emailsSent</td><td>$companyName</td></tr>";
+                }
+                echo "</table>";
+                ?>
+            </div>
         </div>
     </div>
     <footer>

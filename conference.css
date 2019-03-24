@@ -66,6 +66,7 @@ nav ul li a.active {
 header{
   grid-area: header;
   text-align: left;
+  margin-left: 3%;
 }
 
 /********************************************************************************
@@ -91,20 +92,42 @@ td,th {
     justify-content: flex-start;
     align-items: center;
 }
-.select-one-line-header p, .select-one-line-header h2{
+.select-one-line-header p, .select-one-line-header h2, .select-one-line-header h4{
     padding-right: 2%;
 }
 
-
-#displayoptions{
+.box-component{
+    padding-top: 2%;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-bottom: 5%;
+    margin: 2%;
+    background-color: rgb(248, 248, 248);
+    box-shadow: 2px 2px 2px #c9c9c9;
+    border-radius: 4px;
+}
+.display-option{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-end;
+    align-items: center;
 }
+/********************************************************************************
+*********************************Attendee Styling********************************
+*********************************************************************************/
 .items{
     padding-left: 2%;
     padding-right: 2%;
+}
+#listattendees h2{
+    padding-left: 4%;
+}
+
+/********************************************************************************
+*********************************Event Styling********************************
+*********************************************************************************/
+#dayselectdiv{
+    padding-left: 0%;
 }
 
 #timeheader{
@@ -117,7 +140,6 @@ td,th {
     font-size: 12px;
     padding-left: 2px;
 }
-
 
 /********************************************************************************
 ********************************Footing Styling**********************************

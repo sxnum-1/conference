@@ -41,7 +41,7 @@
 
             $attendeeTotal = $studentAmount + $profAmount;
 
-            echo "<div id=\"registrationintake\">";
+            echo "<div id=\"registrationintake\"class='box-component'>";
             echo "<h3>Registration intake</h3>";
             echo "<table>";
             echo "<tr><td>Student registration intake</td><td>\$$studentAmount</td></tr>";
@@ -53,18 +53,18 @@
             $sponsorshipLevels = array("Bronze", "Silver", "Gold", "Platinum");
             $sponsorshipTotal = 0;
 
-            echo "<div id=\"sponsorshipregistrationintake\">";
+            echo "<div id=\"sponsorshipregistrationintake\" class='box-component'>";
             echo "<h3>Sponsorship intake</h3>";
-            echo "</div>";
             echo "<table>";
             foreach ($sponsorshipLevels as $level) {
-              $sponsorshipTotal += createRowEntry($level, $pdo);
+                $sponsorshipTotal += createRowEntry($level, $pdo);
             }
             echo "<tr><th>Total sponsorship intake</th><th>\$$sponsorshipTotal</th></tr>";
             echo "</table>";
-
+            
             $total = $attendeeTotal + $sponsorshipTotal;
             echo "<h2>Total intake: \$$total</h2>";
+            echo "</div>";
 
             function createRowEntry($grade, $pdo)
             {

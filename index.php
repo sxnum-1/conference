@@ -22,12 +22,12 @@
             </ul>
         </nav>
         <header>
-            <h1>Session Events</h1>
+            <h1>Session Events:</h1>
         </header>
         <div class="main">
             <?php include 'pdo.php'?>
 
-            <div id="listDayEvents">
+            <div id="listDayEvents" class="box-component">
                 <div class='select-one-line-header'>
                     <h2>Event Date:</h2>
                     <select id='dateselect' onChange='displayEvent(this.value)'>
@@ -47,7 +47,7 @@
             </div>
 
             </div>
-            <div id="eventManipulation">
+            <div id="eventManipulation" class="box-component">
                 <h2>Select Session to Change:</h2>
                 <div id="sessionselectdiv">
                 <?php
@@ -68,8 +68,8 @@
 
                     ?>
                 </div>
-                <h2>Change Session:</h2>
-                <div id="displayoptions"></div>
+                <h3>Change Session:</h3>
+                <div id="displayoptions" class="display-option"></div>
             </div>
         </div>
         <footer>
