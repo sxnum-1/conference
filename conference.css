@@ -65,7 +65,7 @@ nav ul li a.active {
 *********************************************************************************/
 header{
   grid-area: header;
-  text-align: center;
+  text-align: left;
 }
 
 /********************************************************************************
@@ -80,29 +80,42 @@ table{
 }
 
 td,th {
-  border: 1px solid #999;
-  padding: 0.5rem;
-  text-align: center;
-}
-#backbutton{
-    text-decoration:none;
-    display: block;
-    padding-top: 5%;
+    border: 1px solid #999;
+    padding: 0.5rem;
     text-align: center;
-    color: black;
-    border: 1px solid #999; 
-    background-color: rgb(224, 224, 224);
-    box-shadow: 5px 5px 5px #a3a3a3;
 }
-#backbutton:hover{
-    text-decoration:none;
-    display: block;
-    padding-top: 5%;
-    text-align: center;
-    color: black;
-    border: 1px solid rgb(189, 189, 189); 
-    background-color: rgb(201, 201, 201);
-    box-shadow: 2px 2px 2px #333333;
+
+.select-one-line-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.select-one-line-header p, .select-one-line-header h2{
+    padding-right: 2%;
+}
+
+
+#displayoptions{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.items{
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+#timeheader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#timeheader > p{
+    font-size: 12px;
+    padding-left: 2px;
 }
 
 
@@ -111,4 +124,31 @@ td,th {
 *********************************************************************************/
 footer{
   grid-area: footer;
+}
+
+/********************************************************************************
+********************************Other Styling************************************
+*********************************************************************************/
+#backbutton{
+    text-decoration:none;
+    width: 50%;
+    display: block;
+    padding-top: 6%;
+    text-align: center;
+    color: black;
+    border: 1px solid #999; 
+    background-color: rgb(241, 241, 241);
+    box-shadow: 5px 5px 5px #a3a3a3;
+    border-radius: 2%;
+}
+#backbutton:hover{
+    text-decoration:none;
+    width: 50%;
+    display: block;
+    padding-top: 6%;
+    text-align: center;
+    color: black;
+    border: 1px solid rgb(216, 216, 216); 
+    background-color: rgb(201, 201, 201);
+    box-shadow: 2px 2px 2px #333333;
 }

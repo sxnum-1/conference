@@ -3,8 +3,7 @@
     //pdo.php contains the pdo variable.
     include './pdo.php';
     //Gets possible day selections
-    echo "<h2>Change Session:</h2>";
-    echo "<div id='dayselectdiv'>";
+    echo "<div id='dayselectdiv' class='items'>";
         echo "<h3>Select Day:</h3>";
         //Gets the days to select from. The form attribute allows for drop down menu information to be passed when user submits data.
         echo "<select id='sessionselect' name='sessionday' form='setEventForm'>";
@@ -14,7 +13,7 @@
     echo "</div>";
 
     //Gets the possible rooms to select from";
-    echo "<div id='roomselectdiv'>";
+    echo "<div id='roomselectdiv' class='items'>";
         echo "<h3>Rooms:</h3>";
         echo "<select id='roomselect' name='sessionroom' form='setEventForm'>";
             for($i = 0; $i <= 4; $i++){ //assuming 4 floors
@@ -26,9 +25,11 @@
         echo "</select><br>";
     echo "</div>";
     //get the possible times to select from
-    echo "<div id='divtimeselect'>";
+    echo "<div id='divtimeselect' class='items'>";
+        echo "<div id='timeheader'>";
         echo "<h3>Time:</h3>";
         echo "<p>(Sessions Run for an Hour Long)</p>";
+        echo "</div>";
         echo "<select id='timeselect' name='sessiontime' form='setEventForm'>";
         $min = 0;
         for($hr = 8; $hr <= 20; $hr++){ //assuming 12 hrs for conference to run

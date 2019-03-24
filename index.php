@@ -28,20 +28,22 @@
             <?php include 'pdo.php'?>
 
             <div id="listDayEvents">
-                <h2>Event Date:</h2>
-                <select id='dateselect' onChange='displayEvent(this.value)'>
-                    <option value='saturday' selected='selected'>saturday</option>
-                    <option value='sunday'>sunday</option>
-                </select><br>
+                <div class='select-one-line-header'>
+                    <h2>Event Date:</h2>
+                    <select id='dateselect' onChange='displayEvent(this.value)'>
+                        <option value='saturday' selected='selected'>saturday</option>
+                        <option value='sunday'>sunday</option>
+                    </select>
+                </div>
                 <div id="displayevent">
-                <table>
-                    <tr>
-                        <th>Session</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Room</th>
-                    <tr>
-                </table>
+                    <table>
+                        <tr>
+                            <th>Session</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Room</th>
+                        <tr>
+                    </table>
             </div>
 
             </div>
@@ -66,6 +68,7 @@
 
                     ?>
                 </div>
+                <h2>Change Session:</h2>
                 <div id="displayoptions"></div>
             </div>
         </div>

@@ -24,10 +24,9 @@
             <?php include 'pdo.php'; ?>
             <!--Company and job related information -->
             <div id="companyjobs">
-                <div id="">
-                <h2>Lists jobs at a Company:</h2>
-                <div class='select-one-line-header'>
-                    <p>Company Name:</p>
+                <h2>list all jobs for a company</h2>
+                <div id="companyselection">
+                    <p>Company Name</p>
                     
                     <?php
                         // Gets the company names from SponsorCompany table
@@ -37,6 +36,7 @@
                         //Prepares dropdown menu with company names. 
                         //Calls function displayJobs when menu changes to a new selection and passes selection as parameter
                         echo "<select id='companyname' onChange='displayJobs(this.value)'>";
+                        echo "<option value=''></option>";
                         //Constructs the options looping from the query call. 
                         while ($company = $stmt->fetch()){
                             echo "<option value=" . $company['companyName'] . ">" . $company["companyName"] . "</option>";
@@ -93,11 +93,6 @@
                 
             });
         }
-        function init(){
-            let displayCompany = document.getElementById("companyname");
-            displayJobs(displayCompany[0].value);
-        }
-        window.addEventListener("load",init);
 
     </script>
 
