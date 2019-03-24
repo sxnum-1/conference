@@ -16,51 +16,53 @@
       </ul>
     </nav>
     <header>
-      <h1>stuff for committees</h1>
+      <h1>Committees:</h1>
 
       </header>
     <div class="main">
        <!-- set up PDO -->
        <?php include 'pdo.php'; ?>
       <!--Company and job related information -->
-      <div id="committeepage">
-        <h2>list members of subcommittee (dropdown)</h2>
-        <div id="roomselection">
-          <p>Select a subcommittee you would like to view:</p>
-          
-          <?php
-            // Select Room number from hotel rooms
-            $query = 'SELECT subcommitteename FROM Subcommittee;';
-            $stmt = $pdo->prepare($query);
-            $stmt->execute();
-
-            echo "<select id=\"subcommitteename\" onChange=\"displayCommittee(this)\">";
-            echo "<option value=''></option>";
-            //Constructs the options looping from the query call. 
-            while ($name = $stmt->fetch()){
-              $subcommitteename = $name["subcommitteename"];
-              echo "<option value=\"$subcommitteename\">$subcommitteename</option>";
-            }
-            echo "</select><br>";
-          ?>
+        <div id="committeetypes" class="box-component" >
+            <h2>Committe Members:</h2>
+            <?php
+                //Lists the name of the subcommittees
+                $query = 'SELECT subcommitteeName from Subcommittee';
+                $stmt = $pdo->prepare($query);
+                $stmt->execute();
+                //creates a table
+                echo "<table>";
+                echo "<tr><th>Name</th>";
+                // Loops through and displays each row.
+                while ($name = $stmt->fetch()) {
+                $name = $name["subcommitteeName"];
+                echo "<td>$name</td>";
+                }
+                echo "</tr></table>";
+            ?>
         </div>
-        <div id="display"></div>
+        <div id="committeepage" class="box-component">
+            <h2>Comittee Member Details</h2>
+            <div id="roomselection" class="select-one-line-header">
+            <p>Select a subcommittee you would like to view:</p>
+            
+            <?php
+                // Select Room number from hotel rooms
+                $query = 'SELECT subcommitteename FROM Subcommittee;';
+                $stmt = $pdo->prepare($query);
+                $stmt->execute();
+
+                echo "<select id=\"subcommitteename\" onChange='displayCommittee(this)'>";
+                //Constructs the options looping from the query call. 
+                while ($name = $stmt->fetch()){
+                $subcommitteename = $name["subcommitteename"];
+                echo "<option value=\"$subcommitteename\">$subcommitteename</option>";
+                }
+                echo "</select>";
+            ?>
+            </div>
+            <div id="display"></div>
       </div>
-      <?php
-        //Lists the name of the subcommittees
-        $query = 'SELECT subcommitteeName from Subcommittee';
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
-        //creates a table
-        echo "<table>";
-        echo "<tr><th>Name</th></tr>";
-        // Loops through and displays each row.
-        while ($name = $stmt->fetch()) {
-          $name = $name["subcommitteeName"];
-          echo "<tr><td>$name</td></tr>";
-        }
-        echo "</table>";
-      ?>
     </div>
     <footer>
 
@@ -89,10 +91,11 @@
           }
         );
     }
-    window.addEventListener('load', () => {
-      const sub = document.getElementById('subcommitteename');
-      displayCommittee(sub);
-    });
+    function init(){
+        const sub = document.getElementById('subcommitteename');
+        displayCommittee(sub[0]);
+    }
+    window.addEventListener('load', init);
 
   </script>
   </body>

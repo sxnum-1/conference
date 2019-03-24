@@ -92,7 +92,10 @@ td,th {
     justify-content: flex-start;
     align-items: center;
 }
-.select-one-line-header p, .select-one-line-header h2, .select-one-line-header h4{
+.select-one-line-header p,
+.select-one-line-header h2,
+.select-one-line-header h4,
+.select-one-line-header h3{
     padding-right: 2%;
 }
 

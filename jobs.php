@@ -24,7 +24,7 @@
             <?php include 'pdo.php'; ?>
             <!--Company and job related information -->
             <div class="box-component">
-                <h2>Lists jobs at a Company:</h2>
+                <h2>Jobs at a Company:</h2>
                 <div class='select-one-line-header'>
                     <p>Company Name:</p>
                     
@@ -47,7 +47,7 @@
                 <div id="companyjobdisplay"></div>
             </div>
             <div class="box-component">
-                <h2>list all jobs</h2>
+                <h2>Jobs Available:</h2>
                 <?php
                     //Lists the job title and locations
                     $query = 'SELECT jobTitle, CONCAT(jobCity,\', \',jobProvince) as jobLocation FROM JobPostings;';

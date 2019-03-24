@@ -49,27 +49,27 @@
             </div>
             <div id="eventManipulation" class="box-component">
                 <h2>Select Session to Change:</h2>
-                <div id="sessionselectdiv">
-                <?php
-                    //Gets the possible rooms to select from";
-                    $query = "SELECT DISTINCT sessionName, TIME_FORMAT(startTime,'%h:%i%p') as startTimeReadable, startTime, room FROM SessionEvent;";
-                    $stmt = $pdo->prepare($query);
-                    $stmt->execute();
-                    //Displays a select menu with all unique session events
-                    echo "<select id='sessionselect' name='session' onChange=provideChoices(this.value) form='setEventForm'>";
-                        while ($session = $stmt->fetch()){
-                            $sessionName = $session["sessionName"];
-                            $startTime = $session["startTime"];
-                            $startTimeReadable = $session["startTimeReadable"];
-                            $room = $session["room"];
-                            echo "<option value='startTime=" . $startTime . "&room=" . $room . "&name=" . $sessionName . "'>" . $sessionName . ", Room: " . $room . ", " . $startTimeReadable . "</option>";
-                        }
-                    echo "</select>";
+                <div id="sessionselectdiv" class="select-one-line-header">
+                    <h3>Session:</h3>
+                    <?php
+                        //Gets the possible rooms to select from";
+                        $query = "SELECT DISTINCT sessionName, TIME_FORMAT(startTime,'%h:%i%p') as startTimeReadable, startTime, room FROM SessionEvent;";
+                        $stmt = $pdo->prepare($query);
+                        $stmt->execute();
+                        //Displays a select menu with all unique session events
+                        echo "<select id='sessionselect' name='session' onChange=provideChoices(this.value) form='setEventForm'>";
+                            while ($session = $stmt->fetch()){
+                                $sessionName = $session["sessionName"];
+                                $startTime = $session["startTime"];
+                                $startTimeReadable = $session["startTimeReadable"];
+                                $room = $session["room"];
+                                echo "<option value='startTime=" . $startTime . "&room=" . $room . "&name=" . $sessionName . "'>" . $sessionName . ", Room: " . $room . ", " . $startTimeReadable . "</option>";
+                            }
+                        echo "</select>";
 
-                    ?>
+                        ?>
                 </div>
-                <h3>Change Session:</h3>
-                <div id="displayoptions" class="display-option"></div>
+                <div id="displayoptions"></div>
             </div>
         </div>
         <footer>

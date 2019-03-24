@@ -8,10 +8,10 @@ $stmt = $pdo->prepare($query);
 $stmt->execute();
 // Creates a table with the information. The information that is echoed is sent to fetch API.
 echo "<table id='displayTable'>";
-echo "<tr><th>Name</th></tr>";
+echo "<tr><th>Names:</th>";
 while ($student = $stmt->fetch()) {
     $sessionName = $student["FName"];
-    echo "<tr><td>$sessionName</td></tr>";
+    echo "<td>$sessionName</td>";
 }
-echo "</table>";
+echo "</tr></table>";
  

@@ -79,7 +79,7 @@
 
             <h2>List of Attendees:</h2>
             <div class="box-component">
-                <h3>Students</h3>
+                <h3>Students:</h3>
                 <?php
                 $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email, roomNumber FROM Student";
                 $stmt = $pdo->prepare($query);
@@ -97,7 +97,7 @@
                 ?>
             </div>
             <div class="box-component">
-                <h3>Professionals</h3>
+                <h3>Professionals:</h3>
                 <?php
                 $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email FROM Professional";
                 $stmt = $pdo->prepare($query);
@@ -114,7 +114,7 @@
                 ?>
             </div>
             <div class="box-component">
-                <h3>Sponsors</h3>
+                <h3>Sponsors:</h3>
                 <?php
                 $query = "SELECT CONCAT(firstName, \" \", lastName) AS fullName, email, emailsSent, companyName FROM Sponsor";
                 $stmt = $pdo->prepare($query);
@@ -142,12 +142,18 @@
         function selected(self) {
             let content = document.getElementById('attendeeselection');
             const commonHTML = `
-                <p>First name:</p>
-                <input type="text" name="firstname"><br>
-                <p>Last name:</p>
-                <input type="text" name="lastname"><br>
-                <p>Email:</p>
-                <input type="email" name="email"><br>
+                <div class='select-one-line-header'>
+                    <p>First name:</p>
+                    <input type="text" name="firstname">
+                </div>
+                <div class='select-one-line-header'>
+                    <p>Last name:</p>
+                    <input type="text" name="lastname">
+                </div>
+                <div class='select-one-line-header'>
+                    <p>Email:</p>
+                    <input type="email" name="email">
+                </div>
             `;
             const studentPhp = `
                 <?php
@@ -155,19 +161,22 @@
                 $query = "SELECT HotelRoom.roomNumber, count(id) FROM HotelRoom LEFT JOIN Student ON HotelRoom.roomNumber = Student.roomNumber GROUP BY HotelRoom.roomNumber HAVING count(id) < 4";
                 $stmt = $pdo->prepare($query);
                 $stmt->execute();
+                echo "<div class='select-one-line-header'>";
+                    echo "<p>HotelRoom:</p><select name=\"roomnumber\">";
 
-                echo "<p>HotelRoom:</p><select name=\"roomnumber\">";
+                    while ($room = $stmt->fetch()) {
+                        echo "<option>" . $room["roomNumber"] . "</option>";
+                    }
 
-                while ($room = $stmt->fetch()) {
-                    echo "<option>" . $room["roomNumber"] . "</option>";
-                }
-
-                echo "</select><br>";
+                    echo "</select>";
+                echo "</div>";
                 ?>
             `;
             const sponsorHTML = `
-                <p>Sponsoring company:</p>
-                <input type="text" name="sponsoringcompany"><br>
+                <div class='select-one-line-header'>
+                    <p>Sponsoring company:</p>
+                    <input type="text" name="sponsoringcompany">
+                </div>
             `;
             const submitHTML = '<br><input type="submit">';
             if (self.value === 'student') {
