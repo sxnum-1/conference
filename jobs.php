@@ -17,16 +17,16 @@
         </nav>
         <header>
             <!-- placeholder -->
-            <h1>stuff for jobs</h1>
+            <h1>Jobs:</h1>
         </header>
         <div class="main">
             <!-- set up PDO -->
             <?php include 'pdo.php'; ?>
             <!--Company and job related information -->
-            <div id="companyjobs">
-                <h2>list all jobs for a company</h2>
-                <div id="companyselection">
-                    <p>Company Name</p>
+            <div class="box-component">
+                <h2>Jobs at a Company:</h2>
+                <div class='select-one-line-header'>
+                    <p>Company Name:</p>
                     
                     <?php
                         // Gets the company names from SponsorCompany table
@@ -36,34 +36,35 @@
                         //Prepares dropdown menu with company names. 
                         //Calls function displayJobs when menu changes to a new selection and passes selection as parameter
                         echo "<select id='companyname' onChange='displayJobs(this.value)'>";
-                        echo "<option value=''></option>";
                         //Constructs the options looping from the query call. 
                         while ($company = $stmt->fetch()){
-                            echo "<option value=" . $company['companyName'] . ">" . $company["companyName"] . "</option>";
+                            $companyName = $company["companyName"];
+                            echo "<option value=\"$companyName\">$companyName</option>";
                         }
                         echo "</select><br>";
                     ?>
                 </div>
                 <div id="companyjobdisplay"></div>
             </div>
-
-            <h2>list all jobs</h2>
-            <?php
-                //Lists the job title and locations
-                $query = 'SELECT jobTitle, CONCAT(jobCity,\', \',jobProvince) as jobLocation FROM JobPostings;';
-                $stmt = $pdo->prepare($query);
-                $stmt->execute();
-                //creates a table
-                echo "<table>";
-                    echo "<tr><th>Title</th><th>Location</th></tr>";
-                    // Loops through and displays each row.
-                    while ($job = $stmt->fetch()) {
-                        $jobTitle = $job["jobTitle"];
-                        $jobLocation = $job["jobLocation"];
-                        echo "<tr><td>$jobTitle</td><td>$jobLocation</td></tr>";
-                    }
-                echo "</table>";
-            ?>
+            <div class="box-component">
+                <h2>Jobs Available:</h2>
+                <?php
+                    //Lists the job title and locations
+                    $query = 'SELECT jobTitle, CONCAT(jobCity,\', \',jobProvince) as jobLocation FROM JobPostings;';
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute();
+                    //creates a table
+                    echo "<table>";
+                        echo "<tr><th>Title</th><th>Location</th></tr>";
+                        // Loops through and displays each row.
+                        while ($job = $stmt->fetch()) {
+                            $jobTitle = $job["jobTitle"];
+                            $jobLocation = $job["jobLocation"];
+                            echo "<tr><td>$jobTitle</td><td>$jobLocation</td></tr>";
+                        }
+                    echo "</table>";
+                ?>
+            </div>
         </div>
         <footer>
             
@@ -87,13 +88,16 @@
                 }
             }).then(text => { //2nd layer promises
                 //Gets the html data from the php file and displays all info in the target div.
-                content.innerHTML = "<h3>" + company + "</h3>" + text;
+                content.innerHTML = text;
             }).catch((err) => {
                 console.log('Fetch Error :-S', err);
                 
             });
         }
-
+        window.addEventListener("load", () => {
+            const select = document.getElementById('companyname');
+            displayJobs(select.value);
+        });
     </script>
 
 

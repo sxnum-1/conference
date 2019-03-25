@@ -22,49 +22,52 @@
             </ul>
         </nav>
         <header>
-            <h1>Session Events</h1>
+            <h1>Session Events:</h1>
         </header>
         <div class="main">
             <?php include 'pdo.php'?>
 
-            <div id="listDayEvents">
-                <h2>Event Date:</h2>
-                <select id='dateselect' onChange='displayEvent(this.value)'>
-                    <option value='saturday' selected='selected'>saturday</option>
-                    <option value='sunday'>sunday</option>
-                </select><br>
+            <div id="listDayEvents" class="box-component">
+                <div class='select-one-line-header'>
+                    <h2>Event Date:</h2>
+                    <select id='dateselect' onChange='displayEvent(this.value)'>
+                        <option value='saturday' selected='selected'>saturday</option>
+                        <option value='sunday'>sunday</option>
+                    </select>
+                </div>
                 <div id="displayevent">
-                <table>
-                    <tr>
-                        <th>Session</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Room</th>
-                    <tr>
-                </table>
+                    <table>
+                        <tr>
+                            <th>Session</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Room</th>
+                        <tr>
+                    </table>
             </div>
 
             </div>
-            <div id="eventManipulation">
+            <div id="eventManipulation" class="box-component">
                 <h2>Select Session to Change:</h2>
-                <div id="sessionselectdiv">
-                <?php
-                    //Gets the possible rooms to select from";
-                    $query = "SELECT DISTINCT sessionName, TIME_FORMAT(startTime,'%h:%i%p') as startTimeReadable, startTime, room FROM SessionEvent;";
-                    $stmt = $pdo->prepare($query);
-                    $stmt->execute();
-                    //Displays a select menu with all unique session events
-                    echo "<select id='sessionselect' name='session' onChange=provideChoices(this.value) form='setEventForm'>";
-                        while ($session = $stmt->fetch()){
-                            $sessionName = $session["sessionName"];
-                            $startTime = $session["startTime"];
-                            $startTimeReadable = $session["startTimeReadable"];
-                            $room = $session["room"];
-                            echo "<option value='startTime=" . $startTime . "&room=" . $room . "&name=" . $sessionName . "'>" . $sessionName . ", Room: " . $room . ", " . $startTimeReadable . "</option>";
-                        }
-                    echo "</select>";
+                <div id="sessionselectdiv" class="select-one-line-header">
+                    <h3>Session:</h3>
+                    <?php
+                        //Gets the possible rooms to select from";
+                        $query = "SELECT DISTINCT sessionName, TIME_FORMAT(startTime,'%h:%i%p') as startTimeReadable, startTime, room FROM SessionEvent;";
+                        $stmt = $pdo->prepare($query);
+                        $stmt->execute();
+                        //Displays a select menu with all unique session events
+                        echo "<select id='sessionselect' name='session' onChange=provideChoices(this.value) form='setEventForm'>";
+                            while ($session = $stmt->fetch()){
+                                $sessionName = $session["sessionName"];
+                                $startTime = $session["startTime"];
+                                $startTimeReadable = $session["startTimeReadable"];
+                                $room = $session["room"];
+                                echo "<option value='startTime=" . $startTime . "&room=" . $room . "&name=" . $sessionName . "'>" . $sessionName . ", Room: " . $room . ", " . $startTimeReadable . "</option>";
+                            }
+                        echo "</select>";
 
-                    ?>
+                        ?>
                 </div>
                 <div id="displayoptions"></div>
             </div>
@@ -77,8 +80,8 @@
         function init(){
             let displayDay = document.getElementById("dateselect");
             let changeSession = document.getElementById("sessionselect");
-            displayEvent(displayDay[0].value);
-            provideChoices(changeSession[0].value);
+            displayEvent(displayDay.value);
+            provideChoices(changeSession.value);
         }
         //Function is used to display events associated with a specific day
         function displayEvent(day){

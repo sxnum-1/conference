@@ -61,8 +61,9 @@
         </div>
 
 
-      <div id='newsponsor'>
-            <h2>List of sponsors</h2>
+    <div id='newsponsor'>
+        <div id='sponsorlist' class='box-component'>
+            <h2>List of sponsors:</h2>
             <?php
             $query = "SELECT companyName, companyLocation, ranking FROM SponsorCompany";
             $stmt = $pdo->prepare($query);
@@ -78,13 +79,19 @@
             }
             echo "</table>";
             ?>
-            <h2>Add a new Sponsor Company</h2>
+        </div>
+        <div id='addsponsor' class='box-component'>
+            <h2>Add a new Sponsor Company:</h2>
 
             <form name="newsponsorform" action="" method="post">
-               <p>Company Name:</p>
-                <input type="text" name="companyName"><br>
-                <p>Company Location:</p>
-                <input type="text" name="companyLocation"><br>
+                <div class="select-one-line-header">
+                    <p>Company Name:</p>
+                    <input type="text" name="companyName"><br>
+                </div>
+                <div class="select-one-line-header">
+                    <p>Company Location:</p>
+                    <input type="text" name="companyLocation"><br>
+                </div>
                 <p>Sponsor Ranking:</p>
                 <input type="radio" name="sponsor" value="Platinum">Platinum<br>
                 <input type="radio" name="sponsor" value="Gold">Gold<br>
@@ -94,15 +101,19 @@
                 <input type="submit">
                 <div id="attendeeselection"></div>
             </form>
-            <h2>Delete a Sponsor Company</h2> 
+        </div>
+        <div id='deletesponsor' class='box-component'> 
+            <h2>Delete a Sponsor Company:</h2> 
 
             <form name = "deletesponsorform" action = "" method = "post">
-              <p> Company Name to Delete</p>
-              <input type = 'text' name = "deleteName"><br>
-              <input type = 'hidden' name = "var" value = 1><br>
-              <input type= "submit">
+                <div class="select-one-line-header">
+                    <p> Company Name to Delete:</p>
+                    <input type = 'text' name = "deleteName">
+                </div>
+                <input type = 'hidden' name = "var" value = 1>
+                <input type= "submit">
             </form>
-    <!-- placeholder -->
+        </div>
     </div>
     <footer>
       
